@@ -8,4 +8,5 @@ void setup() {
 }
 
 void draw() {
+  level1.display(0.0,0.0);
 }
