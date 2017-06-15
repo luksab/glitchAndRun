@@ -6,6 +6,7 @@ int frame = 0;
   }
   
   void display(float xpos, float ypos) {
+    bg.resize(width, height);
     image(bg, xpos, ypos);
   }
 }

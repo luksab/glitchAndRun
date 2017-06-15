@@ -5,8 +5,9 @@ void setup() {
   background(255, 204, 0);
   frameRate(24);
   level1 = new Level(loadImage("Images/Level_1/Hintergrund.png"));
+  noSmooth();
 }
 
 void draw() {
-  level1.display(0.0,0.0);
+  level1.display(0.0, 0.0);
 }
