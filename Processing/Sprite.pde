@@ -1,12 +1,25 @@
 class Sprite{
 PImage[] animation;
 int frame = 0;
-  Sprite(PImage[] pAnimation){
+float x, y, vx, vy;
+  Sprite(PImage[] pAnimation, float xpos, float ypos){
     animation = pAnimation;
+    x = xpos;
+    y = ypos;
   }
   
-  void display(float xpos, float ypos) {
+  void display() {
     frame = (frame+1) % animation.length;
-    image(animation[frame], xpos, ypos);
+    image(animation[frame], x, y);
   }
+  
+  void update()
+  {
+    x += vx;
+    y +=vy;
+    updaten();
+  }
+  
+  void updaten()
+  {}
 }
