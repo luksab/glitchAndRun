@@ -1,13 +1,18 @@
 Level level1;
 
 void setup() {
-  size(640, 360);
+  noSmooth();
+  size(1024, 640);
   background(255, 204, 0);
   frameRate(24);
-  level1 = new Level(loadImage("Images/Level_1/Hintergrund.png"));
-  noSmooth();
+  PImage[] bgs = new PImage[1];
+  bgs[0] = loadImage("Images/Level_1/Trees_1.png");
+  bgs[0].resize(2048, 640);
+  PImage bg = loadImage("Images/Level_1/Hintergrund.png");
+  bg.resize(width, height);
+  level1 = new Level(bg, bgs);
 }
 
 void draw() {
-  level1.display(0.0, 0.0);
+  level1.display(mouseX, mouseY);
 }
