@@ -15,11 +15,12 @@ float x, y, vx, vy;
   
   void update()
   {
-    x += vx;
-    y +=vy;
+    
     updaten();
+    x += vx;
+    y += vy;  
   }
   
-  void updaten()
-  {}
+  void updaten(){
+  }
 }
