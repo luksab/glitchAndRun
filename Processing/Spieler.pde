@@ -4,7 +4,7 @@ class Spieler extends Sprite {
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
-    super(pAnimation, xPos, yPos);
+    super(pAnimation, xPos, yPos, 5);
     x = xPos;
     y = yPos;
     vx = 0;
