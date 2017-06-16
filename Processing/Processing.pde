@@ -11,10 +11,6 @@ void setup() {
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
   PImage bg = loadImage("Images/Level_1/Hintergrund.png");
   level1 = new Level(bg, bgs);
-  for(boolean k : keys)
-  {
-    k = false;
-  }
   PImage[] playerAnimation = new PImage[4];
   playerAnimation[0] = (loadImage("Images/Bossfight/Tod2.png"));
   playerAnimation[1] = (loadImage("Images/Bossfight/Tod3.png"));
