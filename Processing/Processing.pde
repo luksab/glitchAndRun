@@ -28,7 +28,10 @@ void draw() {
    {
     if(keyCode == UP)
     {
-      spieler.jump = true;
-    }
+      if(spieler.onGround)
+       {
+        spieler.jump = true;
+       }  
+  }
    }
   }

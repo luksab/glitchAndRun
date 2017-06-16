@@ -38,6 +38,7 @@ class Spieler extends Sprite {
     {
       vy = vjump;
       jump = false;
+      onGround = false;
     } else
     {
       if (onGround)
