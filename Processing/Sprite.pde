@@ -15,10 +15,7 @@ float x, y, vx, vy;
   
   void update()
   {
-    
     updaten();
-    x += vx;
-    y += vy;  
   }
   
   void updaten(){
