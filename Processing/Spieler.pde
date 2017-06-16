@@ -1,6 +1,6 @@
 class Spieler extends Sprite {
-  float y0, vmax = 10.0, vjump = -10.0, g = 0.5;
-  boolean onGround = false, jump = false;
+  float y0, vmax = 10.0, vjump = -10.0, g = 1.0;
+  boolean onGround = false;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -14,44 +14,38 @@ class Spieler extends Sprite {
 
   void updaten()
   {
-    vx = 0;
-    if (keyPressed) {
-      if (key == CODED) {
-        if (keyCode  == RIGHT) {
-          vx = vmax;
-        } else if (keyCode  == LEFT) {
-          vx = -vmax;
-        } else
-        {
-          vx = 0;
-        }
-      } else
-      {
-        vx = 0;
-      }
+    if (keys[0] && !keys[1]) {
+      vx = -vmax;
+    } else if (keys[1] && !keys[0]) {
+      vx = vmax;
     } else
     {
       vx = 0;
     }
+x += vx;
 
-    if (jump)
+
+    if (keys[2] && onGround)
     {
       vy = vjump;
-      jump = false;
       onGround = false;
     } else
     {
       if (onGround)
       {
         vy = 0;
-      } else
+      } else if (y >= y0)
       {
+        onGround = true;
+        vy = 0;
+      } else {
         vy += g;
-        if (y >= y0)
-        {
-          onGround = true;
-        }
       }
+    }
+    y += vy;
+    if(y > y0)
+    {
+     y = y0; 
     }
   }
 }
