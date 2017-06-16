@@ -1,4 +1,6 @@
 Level level1;
+Spieler spieler;
+
 
 void setup() {
   noSmooth();
@@ -9,8 +11,24 @@ void setup() {
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
   PImage bg = loadImage("Images/Level_1/Hintergrund.png");
   level1 = new Level(bg, bgs);
+  PImage[] playerAnimation = new PImage[1];
+  playerAnimation[0] = (loadImage("Images/Texturen/BlockMitLaternen.png"));
+  spieler = new Spieler(playerAnimation, 100.0, 100.0);
 }
 
 void draw() {
   level1.display(mouseX, mouseY);
+  spieler.update();
+  spieler.display();
 }
+
+  void keyPressed()
+  {
+   if(key == CODED)
+   {
+    if(keyCode == UP)
+    {
+      spieler.jump = true;
+    }
+   }
+  }
