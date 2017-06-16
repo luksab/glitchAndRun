@@ -20,9 +20,9 @@ void setup() {
 }
 
 void draw() {
-  level1.display(mouseX, mouseY);
   spieler.update();
-  spieler.display();
+  level1.display(spieler.x/2, 0);
+  spieler.display((int)spieler.x,(int)spieler.y);
 }
 
 void keyPressed()
