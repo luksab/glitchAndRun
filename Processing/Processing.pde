@@ -1,7 +1,8 @@
 Image boden;
-Level level1;
+Level level;
 Spieler spieler;
 public  boolean[] keys = new boolean[3]; // left 0, right 1, up 2
+public float rand = 100, verschoben;
 
 void setup() {
   noSmooth();
@@ -11,7 +12,7 @@ void setup() {
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
   PImage bg = loadImage("Images/Level_1/Hintergrund.png");
-  level1 = new Level(bg, bgs);
+  level = new Level(bg, bgs);
   boden = new Image(loadImage("Images/Böden/Boden 1.png"),0,0);
   PImage[] playerAnimation = new PImage[4];
   playerAnimation[0] = (loadImage("Images/Bossfight/Tod2.png"));
@@ -23,9 +24,36 @@ void setup() {
 
 void draw() {
   spieler.update();
-  level1.display(spieler.x/2, -30);
+  move();
+  level.display(1280 - verschoben/2, -30);
   boden.display(0,0);
-  spieler.display((int)spieler.x,(int)spieler.y);
+  spieler.display((int)(spieler.x - verschoben),(int)spieler.y);
+}
+
+void move()
+{
+  if(spieler.x > 1100 + verschoben - rand - spieler.dx)
+  {
+    if(spieler.x > level.levelbreite - spieler.dx - rand)
+    {
+     verschoben = level.levelbreite - 1100; 
+    }
+    else
+    {
+     verschoben = spieler.x - 1100 + spieler.dx + rand; 
+    }
+  }
+  else if(spieler.x < verschoben + rand)
+  {
+   if(spieler.x < rand)
+   {
+    verschoben = 0; 
+   }
+   else
+   {
+    verschoben = spieler.x-rand; 
+   }
+  }
 }
 
 void keyPressed()

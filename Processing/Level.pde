@@ -1,4 +1,5 @@
 class Level {
+  int levelbreite = 2200;
   PImage bg;
   PImage[] bgs;
   int frame = 0;
