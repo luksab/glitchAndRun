@@ -35,7 +35,7 @@ void move()
 {
   if(spieler.x > 1100 + verschoben - rand - spieler.dx)
   {
-    if(spieler.x > level.levelbreite - 1100 - spieler.dx - rand)
+    if(spieler.x > level.levelbreite - spieler.dx - rand)
     {
      verschoben = level.levelbreite - 1100; 
     }
