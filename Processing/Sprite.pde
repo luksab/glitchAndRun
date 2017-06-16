@@ -16,17 +16,14 @@ float x, y, vx, vy;
     mult = pMult;
   }
   
-  void display() {
+  void display(int pX, int pY) {
     frame = (frame+1) % (animation.length*mult);
-    image(animation[frame/mult], x, y);
+    image(animation[frame/mult], pX, pY);
   }
   
   void update()
   {
-    
     updaten();
-    x += vx;
-    y += vy;  
   }
   
   void updaten(){

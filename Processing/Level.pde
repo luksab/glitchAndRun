@@ -10,6 +10,6 @@ class Level {
   void display(float xpos, float ypos) {
     image(bg, 0, 0);
     for (int i=0; i<bgs.length; i++)
-      image(bgs[i], xpos/(i+1)-1024, 0);
+      image(bgs[i], xpos/(i+1)-1024, ypos);
   }
 }

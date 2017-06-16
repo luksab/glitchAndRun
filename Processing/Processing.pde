@@ -1,6 +1,7 @@
+Image boden;
 Level level1;
 Spieler spieler;
-
+public  boolean[] keys = new boolean[3]; // left 0, right 1, up 2
 
 void setup() {
   noSmooth();
@@ -11,6 +12,7 @@ void setup() {
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
   PImage bg = loadImage("Images/Level_1/Hintergrund.png");
   level1 = new Level(bg, bgs);
+  boden = new Image(loadImage("Images/Böden/Boden 1.png"),0,0);
   PImage[] playerAnimation = new PImage[4];
   playerAnimation[0] = (loadImage("Images/Bossfight/Tod2.png"));
   playerAnimation[1] = (loadImage("Images/Bossfight/Tod3.png"));
@@ -20,21 +22,46 @@ void setup() {
 }
 
 void draw() {
-  level1.display(mouseX, mouseY);
   spieler.update();
-  spieler.display();
+  level1.display(spieler.x/2, -30);
+  boden.display(0,0);
+  spieler.display((int)spieler.x,(int)spieler.y);
 }
 
-  void keyPressed()
+void keyPressed()
+{
+  if (key == CODED)
   {
-   if(key == CODED)
-   {
-    if(keyCode == UP)
+    if (keyCode == LEFT)
     {
-      if(spieler.onGround)
-       {
-        spieler.jump = true;
-       }  
+      keys[0] = true;
+    }
+    if (keyCode == RIGHT)
+    {
+      keys[1] = true;
+    }
+    if (keyCode == UP)
+    {
+      keys[2] = true;
+    }
   }
-   }
+}
+
+void keyReleased()
+{
+  if (key == CODED)
+  {
+    if (keyCode == LEFT)
+    {
+      keys[0] = false;
+    }
+    if (keyCode == RIGHT)
+    {
+      keys[1] = false;
+    }
+    if (keyCode == UP)
+    {
+      keys[2] = false;
+    }
   }
+}
