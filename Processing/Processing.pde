@@ -1,3 +1,4 @@
+Image boden;
 Level level1;
 Spieler spieler;
 public  boolean[] keys = new boolean[3]; // left 0, right 1, up 2
@@ -11,6 +12,7 @@ void setup() {
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
   PImage bg = loadImage("Images/Level_1/Hintergrund.png");
   level1 = new Level(bg, bgs);
+  boden = new Image(loadImage("Images/Böden/Boden 1.png"),0,0);
   for(boolean k : keys)
   {
     k = false;
@@ -25,7 +27,8 @@ void setup() {
 
 void draw() {
   spieler.update();
-  level1.display(spieler.x/2, 0);
+  level1.display(spieler.x/2, -30);
+  boden.display(0,0);
   spieler.display((int)spieler.x,(int)spieler.y);
 }
 
