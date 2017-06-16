@@ -3,6 +3,8 @@ Level level;
 Spieler spieler;
 public  boolean[] keys = new boolean[3]; // left 0, right 1, up 2
 public float rand = 100, verschoben;
+public ArrayList obstacles = new ArrayList<Block>();
+public ArrayList enemies = new ArrayList<Enemy>();
 
 void setup() {
   noSmooth();
