@@ -9,7 +9,7 @@ class Spieler extends Sprite {
     y = yPos;
     vx = 0;
     vy = 0;
-    y0 = 550;
+    y0 = 570;
   }
 
   void updaten()
@@ -22,7 +22,15 @@ class Spieler extends Sprite {
     {
       vx = 0;
     }
-x += vx;
+    x += vx;
+    if(x < 0)
+     {
+       x = 0;
+     }
+     else if(x > level.levelbreite - dx)
+     {
+      x = level.levelbreite - dx; 
+     }
 
 
     if (keys[2] && onGround)
@@ -43,9 +51,9 @@ x += vx;
       }
     }
     y += vy;
-    if(y > y0)
+    if (y > y0)
     {
-     y = y0; 
+      y = y0;
     }
   }
 }
