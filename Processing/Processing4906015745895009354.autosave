@@ -10,8 +10,6 @@ void setup() {
   size(1100, 640);
   background(255, 204, 0);
   frameRate(24);
-  obstacles.add(new Block(550, 200));  
-
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
   PImage bg = loadImage("Images/Level_1/Hintergrund.png");
@@ -26,20 +24,15 @@ void setup() {
 }
 
 void draw() {
-  for (int i=0; i<obstacles.size(); i++)
-    if (spieler.isCollidingWith((Block) obstacles.get(i))) {
-      spieler.isColliding = true;
-      print("asf");
-    }
+  boolean coll = false;
+  for (int i=0; i < obstacles.size(); i++) {
+    if (spieler.isCollidingWith(new Block("Images/"))
+      coll = true;
+  }
   spieler.update();
   move();
   level.display(1280 - verschoben/2, -30);
   boden.display(0, 0);
-
-  for (int i=0; i<obstacles.size(); i++) {
-    Block b = (Block)obstacles.get(i);
-    b.display((int)(100 - verschoben));
-  }
   spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
 }
 
@@ -47,7 +40,7 @@ void move()
 {
   if (spieler.x > 1100 + verschoben - rand - spieler.dx)
   {
-    if (spieler.x > level.levelbreite - spieler.dx - rand)
+    if (spieler.x > level.levelbreite - 1100 - spieler.dx - rand)
     {
       verschoben = level.levelbreite - 1100;
     } else

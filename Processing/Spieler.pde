@@ -1,6 +1,7 @@
+import java.awt.Rectangle;
 class Spieler extends Sprite {
   float y0, vmax = 10.0, vjump = -10.0, g = 1;
-  boolean onGround = false;
+  boolean onGround = false, isColliding;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -12,8 +13,14 @@ class Spieler extends Sprite {
     y0 = 570;
   }
 
+  boolean isCollidingWith(Block image) {
+    Rectangle rec = new Rectangle((int)image.xLeft, (int)image.yTop, (int)image.image.width, (int)image.image.height);
+    Rectangle self = new Rectangle((int)x, (int)y, (int)dx, (int)dy);
+    return rec.intersects(self);
+  }
+
   void updaten()
-  {
+  {    
     if (keys[0] && !keys[1]) {
       vx = -vmax;
     } else if (keys[1] && !keys[0]) {
@@ -23,14 +30,13 @@ class Spieler extends Sprite {
       vx = 0;
     }
     x += vx;
-    if(x < 0)
-     {
-       x = 0;
-     }
-     else if(x > level.levelbreite - dx)
-     {
-      x = level.levelbreite - dx; 
-     }
+    if (x < 0)
+    {
+      x = 0;
+    } else if (x > level.levelbreite - dx)
+    {
+      x = level.levelbreite - dx;
+    }
 
 
     if (keys[2] && onGround)
@@ -50,6 +56,8 @@ class Spieler extends Sprite {
         vy += g;
       }
     }
+    if (isColliding)
+      vy = 0;
     y += vy;
     if (y > y0)
     {
