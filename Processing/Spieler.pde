@@ -1,6 +1,6 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
-  float y0, vmax = 10.0, vjump = -10.0, g = 1;
+  float y0, vmax = 10.0, vjump = -10.0;
   boolean onGround = false, isColliding;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
