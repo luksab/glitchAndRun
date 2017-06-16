@@ -1,5 +1,5 @@
 class Spieler extends Sprite {
-  float y0, vmax = 10.0, vjump = -10.0, g = 1.0;
+  float y0, vmax = 10.0, vjump = -10.0, g = 1;
   boolean onGround = false;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
