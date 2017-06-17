@@ -4,17 +4,13 @@ class Enemy extends Sprite{
   
   Enemy(PImage[] pAnimation, float xpos, float ypos, float velocity, boolean flies)
   {
-    super(pAnimation, xpos, ypos);
+    super(pAnimation, xpos, ypos,5);
     vmove = velocity;
     flying = flies;
   }
   
   void update()
   {
-   if(dead)
-   {
-     enemies.remove(this);
-   }
    updaten();
   }
 }

@@ -3,7 +3,7 @@ class Sprite {
   int frame = 0;
   int mult = 1;
   boolean onGround = false;
-  float x, y, vx, vy, dx, dy, y0, g = 1;
+  float x, y, vx, vy, dx, dy, y0 = 500, g = 1;
   Sprite(PImage[] pAnimation, float xpos, float ypos) {
     animation = pAnimation;
     x = xpos;
@@ -33,49 +33,44 @@ class Sprite {
 
   void updaten() {
   }
-  
+
   int imageCollision()
   {
     int c = 0;
-    for(Object b: obstacles)
+    for (Object b : obstacles)
     {
       Image k = (Image)b;
-      if(y <= k.yBottom && y + dy >= k.yTop)
+      if (y < k.yBottom && y + dy > k.yTop)
       {
-       if(vx > 0 && x + dx >= k.xLeft  && x + dx <= k.xRight)
-       {
-        c +=1; // rechts
-        println("rechts");
-        break;
-       }
-       if(vx < 0 && x >= k.xLeft  && x <= k.xRight)
-       {
-        c +=2; // links
-        println("links");
-        break;
-       }
+        if (vx >= 0 && x + dx >= k.xLeft  && x + dx <= k.xRight)
+        {
+          c +=1; // rechts
+          break;
+        }
+        if (vx <= 0 && x >= k.xLeft  && x <= k.xRight)
+        {
+          c +=2; // links
+          break;
+        }
       }
     }
-    for(Object b: obstacles)
+    for (Object b : obstacles)
     {
       Image k = (Image)b;
-      if(x <= k.xRight && x + dx >= k.xLeft)
+      if (x < k.xRight && x + dx > k.xLeft)
       {
-       if(vy > 0 && y + dy >= k.yTop  && y + dy <= k.yBottom)
-       {
-        c +=6;
-        println("unten");
-        break; // unten
-       }
-       if(vy < 0 && y >= k.yTop  && y <= k.yBottom)
-       {
-        c +=3; // oben
-        println("oben");
-        break;
-       }
+        if (vy >= 0 && y + dy >= k.yTop  && y + dy <= k.yBottom)
+        {
+          c +=6;
+          break; // unten
+        }
+        if (vy < 0 && y >= k.yTop  && y <= k.yBottom)
+        {
+          c +=3; // oben
+          break;
+        }
       }
     }
     return c;
   }
-  
 }

@@ -5,35 +5,31 @@ class SmartEnemy extends Enemy
   {
     super(pAnimation, xpos, ypos, velocity, flies);
     jumpV = jumpVelocity;
+    y0 = 550;
   }
-  
+
   void updaten()
   {
-    if(x < spieler.x)
+    if (x < spieler.x)
     {
-     vx = vmove; 
-    }
-    else if(x > spieler.x)
+      vx = vmove;
+    } else if (x > spieler.x)
     {
-     vx = -vy; 
-    }
-    else
+      vx = -vmove;
+    } else
     {
-     vx = 0; 
+      vx = 0;
     }
     x += vx;
+
     if (!flying)
     {
-      if (!onGround)
+      if (y >= y0)
       {
-        if (y >= y0)
-        {
-          onGround = true;
-          y = y0;
-        } else
-        {
-          vy += g;
-        }
+        y = y0;
+      } else
+      {
+        vy += g;
       }
     }
     y += vy;
