@@ -34,7 +34,7 @@ void setup() {
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 300 + 20 * i, 600, 0));
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 700 + 20 * i, 600, 0));
   }
-    items.add(new Item( (loadImage("Images/Items/Speed.png")), 800, 600, 6));
+  items.add(new Item( (loadImage("Images/Items/Speed.png")), 800, 600, 6));
 
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
@@ -64,39 +64,30 @@ void draw() {
       b.display();
     }
 
-<<<<<<< HEAD
+    spieler.update();
+    if (spieler.x > 2000 && levelNum == 1)
+      loadLevel2();
+    move();
+    level.display(1280 - verschoben/2, -30);
+    boden.display(0, 0);
+    for (int i=0; i<obstacles.size(); i++) {
+      Block b = (Block)obstacles.get(i);
+      b.display();
+    }
+
+    for (int i=0; i<enemies.size(); i++) {
+      Enemy e = (Enemy)enemies.get(i);
+      if (e.dead)
+      {
+        enemies.remove(e);
+      }
+    }
+
     for (int i=0; i<enemies.size(); i++) {
       Enemy e = (Enemy)enemies.get(i);
       e.update();
       e.display((int)(e.x - verschoben), (int)e.y);
     }
-=======
-  spieler.update();
-  if(spieler.x > 2000 && levelNum == 1)
-    loadLevel2();
-  move();
-  level.display(1280 - verschoben/2, -30);
-  boden.display(0, 0);
-  for (int i=0; i<obstacles.size(); i++) {
-    Block b = (Block)obstacles.get(i);
-    b.display();
-  }
-
-for (int i=0; i<enemies.size(); i++) {
-    Enemy e = (Enemy)enemies.get(i);
-    if(e.dead)
-    {
-     enemies.remove(e); 
-    }
-  }
-
-  for (int i=0; i<enemies.size(); i++) {
-    Enemy e = (Enemy)enemies.get(i);
-    e.update();
-    e.display((int)(e.x - verschoben),(int)e.y);
-  }
->>>>>>> 154aa5b44c71844f3b15590e6fcfa60f3a593f13
-
     for (int i=0; i<items.size(); i++) {
       Item o = (Item)items.get(i);
       if (o.dead)
@@ -109,9 +100,8 @@ for (int i=0; i<enemies.size(); i++) {
       o.display(verschoben);
     }
     spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
-  }
-  else
-  startScreen.display(0,0);
+  } else
+    startScreen.display(0, 0);
 }
 
 void addObstaclesLevel1() {
