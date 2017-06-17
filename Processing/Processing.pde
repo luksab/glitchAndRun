@@ -4,6 +4,7 @@ Spieler spieler;
 public  boolean[] keys = new boolean[4]; // left 0, right 1, up 2, space 3
 public float rand = 100, verschoben;
 public ArrayList obstacles = new ArrayList<Block>();
+public ArrayList items = new ArrayList<Item>();
 public ArrayList enemies = new ArrayList<Enemy>();
 
 void setup() {
@@ -12,6 +13,7 @@ void setup() {
   background(255, 204, 0);
   frameRate(24);
   obstacles.add(new Block(200, 500));  
+  items.add(new Item( (loadImage("Images/Items/Diamond.png")), 300, 600));  
 
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
@@ -23,7 +25,7 @@ void setup() {
   playerAnimation[1] = (loadImage("Images/Bossfight/Boss1/Tod3.png"));
   playerAnimation[2] = (loadImage("Images/Bossfight/Boss1/Tod4.png"));
   playerAnimation[3] = (loadImage("Images/Bossfight/Boss1/Tod5.png"));
-  playerAnimation[4] = (loadImage("Images/Bossfight/Boss1/Tod1.png"));
+  playerAnimation[4] = (loadImage("Images/Bossfight/Boss1/Tod0.png"));
   playerAnimation[5] = (loadImage("Images/Bossfight/Boss1/Tod1.png"));
   spieler = new Spieler(playerAnimation, 100.0, 100.0);
 }
@@ -38,6 +40,17 @@ void draw() {
   for (int i=0; i<obstacles.size(); i++) {
     Block b = (Block)obstacles.get(i);
     b.display();
+  }
+  for (int i=0; i<items.size(); i++) {
+    Item o = (Item)items.get(i);
+    if(o.dead)
+    {
+      items.remove(o);
+    }
+  }
+  for (int i=0; i<items.size(); i++) {
+    Item o = (Item)items.get(i);
+    o.display();
   }
   spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
 }

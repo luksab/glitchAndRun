@@ -1,7 +1,7 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
   float vmax = 10.0, vjump = -15.0;
-  boolean right = true;
+  boolean right = true, jump = false;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -49,14 +49,22 @@ class Spieler extends Sprite {
     image(animation[frame], pX, pY);
   }
 
+  void collectItems()
+  {
+    for (int i=0; i<items.size(); i++) {
+      Item o = (Item)items.get(i);
+      if (x <= o.xRight && x + dx >= o.xLeft && y <= o.yBottom && y + dy >= o.yTop)
+      {
+        o.dead = true;
+      }
+    }
+  }
+
 
   void updaten()
   {    
 
-    if (keys[3])
-    {
-      println("Spieler :" + x, x + dx, y, y + dy);
-    }
+    collectItems();
 
 
     if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
@@ -76,14 +84,19 @@ class Spieler extends Sprite {
       x = level.levelbreite - dx;
     }
 
-    if (y < y0 && imageCollision() < 6)
+    if (imageCollision() > 5)
+    {
+      onGround = true;
+    } else if (y < y0)
     {
       onGround = false;
     }
 
+    jump = false;
     if (keys[2] && onGround)
     {
       vy = vjump;
+      jump = true;
       onGround = false;
     } else
     {
@@ -98,7 +111,7 @@ class Spieler extends Sprite {
         vy += g;
       }
     }
-    if ((vy <= 0 && imageCollision() > 2 && imageCollision() < 6) || imageCollision() > 5)
+    if ((vy <= 0 && imageCollision() > 2 && imageCollision() < 6) || (!jump && imageCollision() > 5))
     {
       vy = 0;
     }

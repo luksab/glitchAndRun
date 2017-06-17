@@ -45,13 +45,11 @@ class Sprite {
        if(vx > 0 && x + dx >= k.xLeft  && x + dx <= k.xRight)
        {
         c +=1; // rechts
-        println("rechts");
         break;
        }
        if(vx < 0 && x >= k.xLeft  && x <= k.xRight)
        {
         c +=2; // links
-        println("links");
         break;
        }
       }
@@ -64,13 +62,11 @@ class Sprite {
        if(vy > 0 && y + dy >= k.yTop  && y + dy <= k.yBottom)
        {
         c +=6;
-        println("unten");
         break; // unten
        }
        if(vy < 0 && y >= k.yTop  && y <= k.yBottom)
        {
         c +=3; // oben
-        println("oben");
         break;
        }
       }
