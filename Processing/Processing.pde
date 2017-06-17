@@ -61,6 +61,14 @@ void draw() {
     b.display();
   }
 
+for (int i=0; i<enemies.size(); i++) {
+    Enemy e = (Enemy)enemies.get(i);
+    if(e.dead)
+    {
+     enemies.remove(e); 
+    }
+  }
+
   for (int i=0; i<enemies.size(); i++) {
     Enemy e = (Enemy)enemies.get(i);
     e.update();
