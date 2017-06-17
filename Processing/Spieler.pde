@@ -1,8 +1,7 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
-  float vmax = 10.0, vjump = -10.0;
+  float vmax = 10.0, vjump = -15.0;
   boolean right = true;
-  boolean isColliding;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -13,58 +12,56 @@ class Spieler extends Sprite {
     vy = 0;
     y0 = 570;
   }
-  
+
   void collision()
   {
-   for(Object o: enemies)
-   {
-    Enemy e = (Enemy)o;
-    if(e.x < x + dx && e.x + e.dx > x && e.y < y + dy && e.y + e.dy > y)
+    for (Object o : enemies)
     {
-     if(keys[3])
-     {
-      e.dead = true; 
-     }
-     else
-     {
-      die(); 
-     }
+      Enemy e = (Enemy)o;
+      if (e.x < x + dx && e.x + e.dx > x && e.y < y + dy && e.y + e.dy > y)
+      {
+        if (keys[3])
+        {
+          e.dead = true;
+        } else
+        {
+          die();
+        }
+      }
     }
-   }
   }
-  
+
   void die()
   {
-    
   }
-  
+
   void display(int pX, int pY) {
-    if(keys[3])
+    if (keys[3])
     {
-    frame = (frame+1) % (4);
-    }
-    else if(right)
+      frame = (frame+1) % (4);
+    } else if (right)
     {
-     frame = 4; 
-    }
-    else 
+      frame = 4;
+    } else 
     {
-     frame = 5; 
+      frame = 5;
     }
     image(animation[frame], pX, pY);
   }
 
-  boolean isCollidingWith(Block image) {
-    Rectangle rec = new Rectangle((int)image.xLeft, (int)image.yTop, (int)image.image.width, (int)image.image.height);
-    Rectangle self = new Rectangle((int)x, (int)y, (int)dx, (int)dy);
-    return rec.intersects(self);
-  }
 
   void updaten()
   {    
-    if (keys[0] && !keys[1]) {
+
+    if (keys[3])
+    {
+      println("Spieler :" + x, x + dx, y, y + dy);
+    }
+
+
+    if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
       vx = -vmax;
-    } else if (keys[1] && !keys[0]) {
+    } else if (keys[1] && !keys[0] && imageCollision() != 1 && imageCollision()  != 4 && imageCollision() != 7) {
       vx = vmax;
     } else
     {
@@ -79,6 +76,10 @@ class Spieler extends Sprite {
       x = level.levelbreite - dx;
     }
 
+    if (y < y0 && imageCollision() < 6)
+    {
+      onGround = false;
+    }
 
     if (keys[2] && onGround)
     {
@@ -96,6 +97,10 @@ class Spieler extends Sprite {
       } else {
         vy += g;
       }
+    }
+    if ((vy <= 0 && imageCollision() > 2 && imageCollision() < 6) || imageCollision() > 5)
+    {
+      vy = 0;
     }
     y += vy;
     if (y > y0)

@@ -1,4 +1,6 @@
 class Block extends Image {
+  
+  boolean b = true;
   Block(PImage image, float xPos, float yPos)
   {
     super(image, xPos, yPos);
@@ -9,7 +11,12 @@ class Block extends Image {
     super(loadImage("Images/Texturen/BlockMitLaternen.png"), xPos, yPos);
   }
 
-  void display(int xpos) {
-    image(image, xpos, xLeft);
+  void display() {
+    image(image, xLeft - verschoben, yTop);
+    if(b)
+    {
+     println(xLeft, xRight, yTop, yBottom);
+     b = false;
+    }
   }
 }

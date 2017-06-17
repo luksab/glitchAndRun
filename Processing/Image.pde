@@ -8,9 +8,11 @@ class Image {
     xRight = xPos + image.width;
     yTop = yPos;
     yBottom = yPos + image.height;
+    
   }
 
   void display(float xpos, float ypos) {
     image(image, xpos, ypos);
+    
   }
 }
