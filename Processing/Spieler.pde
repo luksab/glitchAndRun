@@ -1,8 +1,8 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
-  float vmax = 10.0, vjump = -15.0, jumpfactor = 1;
-  boolean right = true, jump = false, gotKey = false;
-  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0;
+  float v0 = 7.0, vmax, vjump = -15.0, jumpfactor = 1;
+  boolean right = true, jump = false, gotKey = false, fast = false;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -12,6 +12,7 @@ class Spieler extends Sprite {
     vx = 0;
     vy = 0;
     y0 = 570;
+    vmax = v0;
   }
 
   void collision()
@@ -55,6 +56,10 @@ class Spieler extends Sprite {
     for (int i = lives; i < lives + shield; i++)
     {
       image((loadImage("Images/Items/Shield.png")), 30 + 30 * i, 30);
+    }
+    if (fast)
+    {
+      image((loadImage("Images/Items/Speed.png")), 30, 60);
     }
     for (int i = 0; i < coins; i++)
     {
@@ -110,7 +115,9 @@ class Spieler extends Sprite {
           shield++;
           break;
         case 6: 
-          vmax *= 1.5;
+          fast = true;
+          fastTime = millis();
+          vmax = v0 * 2;
         }
         o.dead = true;
       }
@@ -177,5 +184,11 @@ class Spieler extends Sprite {
 
     collectItems();
     collision();
+
+    if (millis() >= fastTime + 5000)
+    {
+      vmax = v0;
+      fast = false;
+    }
   }
 }
