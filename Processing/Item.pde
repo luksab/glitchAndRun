@@ -7,9 +7,9 @@ class Item extends Image
     super(picture, xPos, yPos);
   }
   
-  void display()
+  void display(float verschoben)
   {
-        image(image, xLeft, yTop);
+        image(image, xLeft - verschoben, yTop);
 
   }
   
