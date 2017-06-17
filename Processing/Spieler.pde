@@ -1,5 +1,6 @@
 class Spieler extends Sprite {
   float vmax = 10.0, vjump = -10.0;
+  boolean right = true;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -9,6 +10,46 @@ class Spieler extends Sprite {
     vx = 0;
     vy = 0;
     y0 = 570;
+  }
+  
+  void collision()
+  {
+   for(Object o: enemies)
+   {
+    Enemy e = (Enemy)o;
+    if(e.x < x + dx && e.x + e.dx > x && e.y < y + dy && e.y + e.dy > y)
+    {
+     if(keys[3])
+     {
+      e.dead = true; 
+     }
+     else
+     {
+      die(); 
+     }
+    }
+   }
+  }
+  
+  void die()
+  {
+    
+  }
+  
+  void display(int pX, int pY) {
+    if(keys[3])
+    {
+    frame = (frame+1) % (4);
+    }
+    else if(right)
+    {
+     frame = 4; 
+    }
+    else 
+    {
+     frame = 5; 
+    }
+    image(animation[frame], pX, pY);
   }
 
   void updaten()

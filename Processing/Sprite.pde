@@ -33,4 +33,41 @@ class Sprite {
 
   void updaten() {
   }
+  
+  int imageCollision()
+  {
+    int c = 0;
+    for(Object b: obstacles)
+    {
+      Image k = (Image)b;
+      if(y < k.yTop && y + dy > k.yBottom)
+      {
+       if(vx > 0 && x + dx > k.xLeft  && x + dx < k.xRight)
+       {
+        c +=1;
+        break;
+       }
+       if(vx < 0 && x > k.xLeft  && x < k.xRight)
+       {
+        c +=2;
+        break;
+       }
+      }
+      if(x < k.xRight && x + dx > k.xLeft)
+      {
+       if(vy > 0 && y + dy > k.yTop  && y + dy < k.yBottom)
+       {
+        c +=6;
+        break;
+       }
+       if(vy < 0 && x > k.yTop  && x < k.yBottom)
+       {
+        c +=3;
+        break;
+       }
+      }
+    }
+    return c;
+  }
+  
 }
