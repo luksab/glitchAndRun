@@ -215,3 +215,7 @@ void keyReleased()
     keys[3] = false;
   }
 }
+
+void mouseClicked() {
+  hasStarted = true;
+}
