@@ -69,6 +69,8 @@ void draw() {
         loadLevel2();
       else if (levelNum == 2)
         loadLevel3();
+      else if (levelNum == 3)
+        loadLevelBF();
     }
 
     move();
@@ -161,8 +163,20 @@ void addObstaclesLevel3() {
   obstacles.add(new Block(400, 430));
 }
 
+void loadLevelBF() {
+  levelNum = 3;
+  addObstaclesLevel3();
+
+  items.clear();
+  items.add(new Item( (loadImage("Images/Items/Diamond.png")), 100, 600, 1));
+  PImage[] bgs = new PImage[1];
+  bgs[0] = loadImage("Images/Level_2/Trees_2.png");
+  PImage bg = loadImage("Images/Level_2/BG lvl 2.png");
+  level = new Level(bg, bgs);
+  boden = new Image(loadImage("Images/Böden/Boden 3.png"), 0, 0);
+  spieler.x = 0;
+}
 void loadLevel3() {
-  print("loadlevel");
   levelNum = 3;
   addObstaclesLevel3();
 
@@ -177,7 +191,6 @@ void loadLevel3() {
 }
 
 void loadLevel2() {
-  print("loadlevel");
   levelNum = 2;
   addObstaclesLevel2();
 
