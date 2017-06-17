@@ -41,12 +41,17 @@ class Spieler extends Sprite {
       if (shield >0)
       {
         shield--;
-      } else
+      } else if(lives > 0)
       {
         lives--;
+      }else
+      {
+       actuallyDie(); 
       }
     }
   }
+  
+  void actuallyDie();
 
   void display(int pX, int pY) {
     for (int i = 0; i < lives; i++)
