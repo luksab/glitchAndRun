@@ -15,7 +15,6 @@ class Block extends Image {
     image(image, xLeft - verschoben, yTop);
     if(b)
     {
-     println(xLeft, xRight, yTop, yBottom);
      b = false;
     }
   }
