@@ -18,7 +18,7 @@ public ArrayList enemies = new ArrayList<Enemy>();
 void setup() {
   noSmooth();
   //size(1650, 960);
-  size(1100,640);
+  size(1100, 640);
   //size(825,480);
   pixelDensity(1);
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
@@ -125,8 +125,8 @@ void addObstaclesLevel1() {
   ememyAnim[1] = (loadImage("Images/Gegner/Gegner1/enemy_swing_2.png"));
   ememyAnim[2] = (loadImage("Images/Gegner/Gegner1/enemy_swing_3.png"));
   ememyAnim[3] = (loadImage("Images/Gegner/Gegner1/enemy_swing_4.png"));
-  enemies.add(new StupidEnemy(ememyAnim, 200, 500, 200, 400, false));
-  enemies.add(new SmartEnemy(ememyAnim, 400, 400, 10, false));
+  enemies.add(new StupidEnemy(ememyAnim, 200+random(100), 500, 200, 400, false));
+  enemies.add(new SmartEnemy(ememyAnim, 400+random(100), 400, 10, false));
   obstacles.add(new Block(200, 550));  
   obstacles.add(new Block(400, 430));
 }
@@ -159,9 +159,25 @@ void addObstaclesLevel3() {
   obstacles.add(new Block(400, 430));
 }
 
+void addObstaclesBF() {
+  enemies.clear();
+  obstacles.clear();
+  PImage[] ememyAnim = new PImage[4];
+  ememyAnim[0] = (loadImage("Images/Gegner/Gegner1/enemy_swing_1.png"));
+  ememyAnim[1] = (loadImage("Images/Gegner/Gegner1/enemy_swing_2.png"));
+  ememyAnim[2] = (loadImage("Images/Gegner/Gegner1/enemy_swing_3.png"));
+  ememyAnim[3] = (loadImage("Images/Gegner/Gegner1/enemy_swing_4.png"));
+  for (int i=0; i<50; i++) {
+    enemies.add(new StupidEnemy(ememyAnim, 200+random(1000), 500, 200, 400, false));
+    enemies.add(new SmartEnemy(ememyAnim, 400+random(1000), 400, 10, false));
+    obstacles.add(new Block(200, 550));  
+    obstacles.add(new Block(400, 430));
+  }
+}
+
 void loadLevelBF() {
   levelNum = 3;
-  addObstaclesLevel3();
+  addObstaclesBF();
 
   items.clear();
   items.add(new Item( (loadImage("Images/Items/Diamond.png")), 100, 600, 1));
