@@ -11,7 +11,7 @@ void setup() {
   size(1100, 640);
   background(255, 204, 0);
   frameRate(24);
-  obstacles.add(new Block(600, 200));  
+  obstacles.add(new Block(200, 500));  
 
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
@@ -29,11 +29,7 @@ void setup() {
 }
 
 void draw() {
-  for (int i=0; i<obstacles.size(); i++)
-    if (spieler.isCollidingWith((Block) obstacles.get(i))) {
-      spieler.isColliding = true;
-      print("asf");
-    }
+   
   spieler.update();
   move();
   level.display(1280 - verschoben/2, -30);
@@ -41,7 +37,7 @@ void draw() {
 
   for (int i=0; i<obstacles.size(); i++) {
     Block b = (Block)obstacles.get(i);
-    b.display((int)(100 - verschoben));
+    b.display();
   }
   spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
 }
