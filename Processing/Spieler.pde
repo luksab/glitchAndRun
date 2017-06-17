@@ -45,9 +45,17 @@ class Spieler extends Sprite {
     {
       image((loadImage("Images/Items/Shield.png")), 30 + 30 * i, 30);
     }
+    for (int i = 0; i < coins; i++)
+    {
+      image((loadImage("Images/Items/Coin.png")), 1060 - 30 * i, 30);
+    }
+    for (int i = 0; i < diamonds; i++)
+    {
+      image((loadImage("Images/Items/Diamond.png")), 1060 - 30 * i, 60);
+    }
     if (gotKey)
     {
-      image((loadImage("Images/Items/key.png")), 1070, 30);
+      image((loadImage("Images/Items/key.png")), 1060, 90);
     }
 
 

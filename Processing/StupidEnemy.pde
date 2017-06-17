@@ -24,6 +24,7 @@ class StupidEnemy extends Enemy {
         {
           onGround = true;
           y = y0;
+          vy=0;
         } else
         {
           vy += g;
