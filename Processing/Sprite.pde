@@ -59,7 +59,7 @@ class Sprite {
       Image k = (Image)b;
       if(x <= k.xRight && x + dx >= k.xLeft)
       {
-       if(vy > 0 && y + dy >= k.yTop  && y + dy <= k.yBottom)
+       if(vy >= 0 && y + dy >= k.yTop  && y + dy <= k.yBottom)
        {
         c +=6;
         break; // unten

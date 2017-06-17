@@ -65,7 +65,7 @@ class Spieler extends Sprite {
   {    
 
     collectItems();
-
+    println(imageCollision());
 
     if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
       vx = -vmax;
@@ -111,7 +111,7 @@ class Spieler extends Sprite {
         vy += g;
       }
     }
-    if ((vy <= 0 && imageCollision() > 2 && imageCollision() < 6) || (!jump && imageCollision() > 5))
+    if ((vy < 0 && imageCollision() > 2 && imageCollision() < 6) || (!jump && imageCollision() > 5))
     {
       vy = 0;
     }
