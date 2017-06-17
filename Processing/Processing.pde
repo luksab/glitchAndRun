@@ -1,3 +1,6 @@
+import ddf.minim.*;
+AudioPlayer player;
+Minim minim;
 Image boden;
 Level level;
 Spieler spieler;
@@ -11,6 +14,10 @@ void setup() {
   size(1100, 640);
   background(255, 204, 0);
   frameRate(24);
+  minim = new Minim(this);
+  player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
+  //player.loop();
+  
   obstacles.add(new Block(200, 500));  
 
   PImage[] bgs = new PImage[1];
