@@ -2,7 +2,7 @@ import java.awt.Rectangle;
 class Spieler extends Sprite {
   float vmax = 10.0, vjump = -15.0, jumpfactor = 1;
   boolean right = true, jump = false, gotKey = false;
-  int coins = 0, diamonds = 0, shield = 0, lives = 3;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -19,7 +19,7 @@ class Spieler extends Sprite {
     for (Object o : enemies)
     {
       Enemy e = (Enemy)o;
-      if (e.x < x + dx && e.x + e.dx > x && e.y < y + dy && e.y + e.dy > y)
+      if (e.x <= x + dx && e.x + e.dx >= x && e.y <= y + dy && e.y + e.dy >= y)
       {
         if (keys[3])
         {
@@ -34,6 +34,17 @@ class Spieler extends Sprite {
 
   void die()
   {
+    if (millis()-time >= 1000)
+    {
+      time = millis();
+      if (shield >0)
+      {
+        shield--;
+      } else
+      {
+        lives--;
+      }
+    }
   }
 
   void display(int pX, int pY) {
@@ -109,9 +120,6 @@ class Spieler extends Sprite {
 
   void updaten()
   {    
-
-    collectItems();
-
     if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
       vx = -vmax;
     } else if (keys[1] && !keys[0] && imageCollision() != 1 && imageCollision()  != 4 && imageCollision() != 7) {
@@ -166,5 +174,8 @@ class Spieler extends Sprite {
     {
       y = y0;
     }
+
+    collectItems();
+    collision();
   }
 }
