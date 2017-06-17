@@ -40,10 +40,6 @@ void setup() {
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 700 + 20 * i, 600, 0));
   }
   items.add(new Item( (loadImage("Images/Items/Speed.png")), 800, 600, 6));
-  for (int i = 0; i < 10; i++)
-  {
-      items.add(new Item( (loadImage("Images/Items/Shield.png")), 1200, 600, 5));  
-  }
 
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
@@ -162,7 +158,6 @@ void addObstaclesLevel3() {
 }
 
 void loadLevel3() {
-  print("loadlevel");
   levelNum = 3;
   addObstaclesLevel3();
 
@@ -177,7 +172,6 @@ void loadLevel3() {
 }
 
 void loadLevel2() {
-  print("loadlevel");
   levelNum = 2;
   addObstaclesLevel2();
 
