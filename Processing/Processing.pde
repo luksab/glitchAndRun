@@ -17,8 +17,9 @@ public ArrayList enemies = new ArrayList<Enemy>();
 
 void setup() {
   noSmooth();
-  //size(1100, 640);
-  size(825,480);
+  size(1650, 960);
+  //size(1100,640)
+  //size(825,480);
   pixelDensity(1);
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
   gameOver = new Image(loadImage("Images/Screens/Game Over Screen.png"), 0, 0);
@@ -56,7 +57,7 @@ void setup() {
 }
 
 void draw() {
-  scale(0.75);
+  scale(1.5);
   if (hasStarted) {
     spieler.update();
     if (spieler.x > 2000) {
