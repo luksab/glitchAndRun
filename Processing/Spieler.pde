@@ -51,7 +51,10 @@ class Spieler extends Sprite {
     }
   }
   
-  void actuallyDie();
+  void actuallyDie()
+  {
+    
+  }
 
   void display(int pX, int pY) {
     for (int i = 0; i < lives; i++)
