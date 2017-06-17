@@ -18,9 +18,11 @@ void setup() {
   //minim = new Minim(this);
   //player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
   //player.loop();
-  
+
   obstacles.add(new Block(200, 600));  
-  items.add(new Item( (loadImage("Images/Items/Diamond.png")), 300, 600));  
+  items.add(new Item( (loadImage("Images/Items/key.png")), 600, 600, 4));  
+  items.add(new Item( (loadImage("Images/Items/heart.png")), 400, 600, 3));  
+  items.add(new Item( (loadImage("Images/Items/Shield.png")), 500, 600, 5));  
 
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
@@ -38,7 +40,7 @@ void setup() {
 }
 
 void draw() {
-   
+
   spieler.update();
   move();
   level.display(1280 - verschoben/2, -30);
@@ -50,7 +52,7 @@ void draw() {
   }
   for (int i=0; i<items.size(); i++) {
     Item o = (Item)items.get(i);
-    if(o.dead)
+    if (o.dead)
     {
       items.remove(o);
     }
