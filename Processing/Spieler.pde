@@ -1,7 +1,8 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
-  float vmax = 10.0, vjump = -15.0;
-  boolean right = true, jump = false;
+  float vmax = 10.0, vjump = -15.0, jumpfactor = 1;
+  boolean right = true, jump = false, gotKey = false;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -36,6 +37,28 @@ class Spieler extends Sprite {
   }
 
   void display(int pX, int pY) {
+    for (int i = 0; i < lives; i++)
+    {
+      image((loadImage("Images/Items/heart.png")), 30 + 30 * i, 30);
+    }
+    for (int i = lives; i < lives + shield; i++)
+    {
+      image((loadImage("Images/Items/Shield.png")), 30 + 30 * i, 30);
+    }
+    for (int i = 0; i < coins; i++)
+    {
+      image((loadImage("Images/Items/Coin.png")), 1060 - 30 * i, 30);
+    }
+    for (int i = 0; i < diamonds; i++)
+    {
+      image((loadImage("Images/Items/Diamond.png")), 1060 - 30 * i, 60);
+    }
+    if (gotKey)
+    {
+      image((loadImage("Images/Items/key.png")), 1060, 90);
+    }
+
+
     if (keys[3])
     {
       frame = (frame+1) % (4);
@@ -55,6 +78,29 @@ class Spieler extends Sprite {
       Item o = (Item)items.get(i);
       if (x <= o.xRight && x + dx >= o.xLeft && y <= o.yBottom && y + dy >= o.yTop)
       {
+        switch(o.type)
+        {
+        case 0: 
+          coins++;
+          break;
+        case 1: 
+          diamonds++;
+          break;
+        case 2: 
+          jumpfactor += 0.5; 
+          break;
+        case 3: 
+          lives ++;
+          break;
+        case 4: 
+          gotKey = true;
+          break;
+        case 5: 
+          shield++;
+          break;
+        case 6: 
+          vmax *= 1.5;
+        }
         o.dead = true;
       }
     }
@@ -65,7 +111,6 @@ class Spieler extends Sprite {
   {    
 
     collectItems();
-    println(imageCollision());
 
     if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
       vx = -vmax;
@@ -95,7 +140,8 @@ class Spieler extends Sprite {
     jump = false;
     if (keys[2] && onGround)
     {
-      vy = vjump;
+      vy = vjump * jumpfactor;
+      jumpfactor = 1;
       jump = true;
       onGround = false;
     } else

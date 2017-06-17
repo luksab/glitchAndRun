@@ -42,12 +42,12 @@ class Sprite {
       Image k = (Image)b;
       if(y <= k.yBottom && y + dy >= k.yTop)
       {
-       if(vx > 0 && x + dx >= k.xLeft  && x + dx <= k.xRight)
+       if(vx >= 0 && x + dx >= k.xLeft  && x + dx <= k.xRight)
        {
         c +=1; // rechts
         break;
        }
-       if(vx < 0 && x >= k.xLeft  && x <= k.xRight)
+       if(vx <= 0 && x >= k.xLeft  && x <= k.xRight)
        {
         c +=2; // links
         break;
