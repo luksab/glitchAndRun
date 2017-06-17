@@ -44,12 +44,12 @@ class Sprite {
       {
        if(vx > 0 && x + dx > k.xLeft  && x + dx < k.xRight)
        {
-        c +=1;
+        c +=1; // rechts
         break;
        }
        if(vx < 0 && x > k.xLeft  && x < k.xRight)
        {
-        c +=2;
+        c +=2; // links
         break;
        }
       }
@@ -58,11 +58,11 @@ class Sprite {
        if(vy > 0 && y + dy > k.yTop  && y + dy < k.yBottom)
        {
         c +=6;
-        break;
+        break; // unten
        }
        if(vy < 0 && x > k.yTop  && x < k.yBottom)
        {
-        c +=3;
+        c +=3; // oben
         break;
        }
       }
