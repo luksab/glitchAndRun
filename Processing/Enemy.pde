@@ -11,10 +11,6 @@ class Enemy extends Sprite{
   
   void update()
   {
-   if(dead)
-   {
-     enemies.remove(this);
-   }
    updaten();
   }
 }
