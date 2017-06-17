@@ -31,6 +31,7 @@ void setup() {
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 300 + 20 * i, 600, 0));
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 700 + 20 * i, 600, 0));
   }
+    items.add(new Item( (loadImage("Images/Items/Speed.png")), 800, 600, 6));
 
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
@@ -113,8 +114,8 @@ void loadLevel2(){
   items.clear();
   items.add(new Item( (loadImage("Images/Items/Diamond.png")), 100, 600, 1));
   PImage[] bgs = new PImage[1];
-  bgs[0] = loadImage("Images/Level_1/Trees_1.png");
-  PImage bg = loadImage("Images/Level_1/Hintergrund.png");
+  bgs[0] = loadImage("Images/Level_2/Trees_2.png");
+  PImage bg = loadImage("Images/Level_2/BG lvl 2.png");
   level = new Level(bg, bgs);
   boden = new Image(loadImage("Images/Böden/Boden 2.png"), 0, 0);
   spieler.x = 0;
