@@ -7,6 +7,12 @@ class SmartEnemy extends Enemy
     jumpV = jumpVelocity;
     y0 = 550;
   }
+  SmartEnemy(PImage[] pAnimation, float xpos, float ypos, float jumpVelocity, boolean flies)
+  {
+    super(pAnimation, xpos, ypos, flies);
+    jumpV = jumpVelocity;
+    y0 = 550;
+  }
 
   void updaten()
   {

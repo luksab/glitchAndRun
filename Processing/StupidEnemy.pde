@@ -8,6 +8,13 @@ class StupidEnemy extends Enemy {
     xmax = xMax;
     y0 = 570;
   }
+  StupidEnemy(PImage[] pAnimation, float xpos, float ypos, float xMin, float xMax, boolean flies)
+  {
+    super(pAnimation, xpos, ypos, flies);
+    xmin = xMin;
+    xmax = xMax;
+    y0 = 570;
+  }
 
   void updaten()
   {
