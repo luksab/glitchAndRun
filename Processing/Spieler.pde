@@ -136,9 +136,9 @@ class Spieler extends Sprite {
   void updaten()
   {    
     if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
-      vx = -vmax;
+      vx = -vmax * pow(0.9, shield);
     } else if (keys[1] && !keys[0] && imageCollision() != 1 && imageCollision()  != 4 && imageCollision() != 7) {
-      vx = vmax;
+      vx = vmax * pow(0.9, (float)shield);
     } else
     {
       vx = 0;
@@ -161,7 +161,7 @@ class Spieler extends Sprite {
     }
 
     jump = false;
-    if (keys[2] && onGround)
+    if (keys[2] && onGround && !keys[3])
     {
       vy = vjump * jumpfactor;
       jumpfactor = 1;

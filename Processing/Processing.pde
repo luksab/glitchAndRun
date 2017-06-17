@@ -1,6 +1,6 @@
-import ddf.minim.*;
-AudioPlayer player;
-Minim minim;
+//import ddf.minim.*;
+//AudioPlayer player;
+//Minim minim;
 Image boden;
 Image startScreen;
 Image gameOver;
@@ -17,16 +17,16 @@ public ArrayList enemies = new ArrayList<Enemy>();
 
 void setup() {
   noSmooth();
-  size(1650, 960);
-  //size(1100,640)
+  //size(1650, 960);
+  size(1100,640);
   //size(825,480);
   pixelDensity(1);
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
   gameOver = new Image(loadImage("Images/Screens/Game Over Screen.png"), 0, 0);
   frameRate(24);
-  minim = new Minim(this);
-  player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
-  player.loop();
+  //minim = new Minim(this);
+  //player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
+  //player.loop();
 
   obstacles.add(new Block(200, 600));  
   items.add(new Item( (loadImage("Images/Items/key.png")), 600, 600, 4));  
@@ -40,6 +40,10 @@ void setup() {
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 700 + 20 * i, 600, 0));
   }
   items.add(new Item( (loadImage("Images/Items/Speed.png")), 800, 600, 6));
+  for (int i = 0; i < 10; i++)
+  {
+      items.add(new Item( (loadImage("Images/Items/Shield.png")), 1200, 600, 5));  
+  }
 
   PImage[] bgs = new PImage[1];
   bgs[0] = loadImage("Images/Level_1/Trees_1.png");
@@ -57,7 +61,7 @@ void setup() {
 }
 
 void draw() {
-  scale(1.5);
+  scale(1);
   if (hasStarted) {
     spieler.update();
     if (spieler.x > 2000) {
