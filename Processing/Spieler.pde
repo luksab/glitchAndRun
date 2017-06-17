@@ -1,7 +1,7 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
   float v0 = 7.0, vmax, vjump = -15.0, jumpfactor = 1;
-  boolean right = true, jump = false, gotKey = false, fast = false;
+  boolean right = true, jump = false, gotKey = false, fast = false, hasDied=false;
   int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
@@ -53,7 +53,7 @@ class Spieler extends Sprite {
   
   void actuallyDie()
   {
-    
+    hasDied = true;
   }
 
   void display(int pX, int pY) {
@@ -111,7 +111,7 @@ class Spieler extends Sprite {
           diamonds++;
           break;
         case 2: 
-          jumpfactor += 0.5; 
+          jumpfactor += 0.2; 
           break;
         case 3: 
           lives ++;
