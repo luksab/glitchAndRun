@@ -18,8 +18,8 @@ void setup() {
   //minim = new Minim(this);
   //player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
   //player.loop();
+  addObstaclesLevel1();
   
-  obstacles.add(new Block(200, 600));  
   items.add(new Item( (loadImage("Images/Items/Diamond.png")), 300, 600));  
 
   PImage[] bgs = new PImage[1];
@@ -38,16 +38,21 @@ void setup() {
 }
 
 void draw() {
-   
   spieler.update();
   move();
   level.display(1280 - verschoben/2, -30);
   boden.display(0, 0);
-
   for (int i=0; i<obstacles.size(); i++) {
     Block b = (Block)obstacles.get(i);
     b.display();
   }
+  
+  for (int i=0; i<enemies.size(); i++) {
+    Enemy e = (Enemy)enemies.get(i);
+    e.update();
+    e.display((int)e.x,(int)e.y);
+  }
+  
   for (int i=0; i<items.size(); i++) {
     Item o = (Item)items.get(i);
     if(o.dead)
@@ -60,6 +65,18 @@ void draw() {
     o.display();
   }
   spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
+}
+
+void addObstaclesLevel1(){
+  PImage[] ememyAnim = new PImage[4];
+  ememyAnim[0] = (loadImage("Images/Gegner/Gegner1/enemy_swing_1.png"));
+  ememyAnim[1] = (loadImage("Images/Gegner/Gegner1/enemy_swing_2.png"));
+  ememyAnim[2] = (loadImage("Images/Gegner/Gegner1/enemy_swing_3.png"));
+  ememyAnim[3] = (loadImage("Images/Gegner/Gegner1/enemy_swing_4.png"));
+  enemies.add(new StupidEnemy(ememyAnim,200,500,200,400,5,false));
+  enemies.add(new SmartEnemy(ememyAnim,400,400,5,10,false));
+  obstacles.add(new Block(200, 550));  
+  obstacles.add(new Block(400, 430));
 }
 
 void move()

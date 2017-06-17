@@ -3,7 +3,7 @@ class Sprite {
   int frame = 0;
   int mult = 1;
   boolean onGround = false;
-  float x, y, vx, vy, dx, dy, y0, g = 1;
+  float x, y, vx, vy, dx, dy, y0 = 500, g = 1;
   Sprite(PImage[] pAnimation, float xpos, float ypos) {
     animation = pAnimation;
     x = xpos;
