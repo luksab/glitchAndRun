@@ -7,8 +7,10 @@ Image gameOver;
 Level level;
 Spieler spieler;
 int levelNum = 1;
+int loadingLevel = 0;
 boolean hasStarted = true;
 boolean hasStoped = false;
+public PImage[] screens = new PImage[3];
 public  boolean[] keys = new boolean[4]; // left 0, right 1, up 2, space 3
 public float rand = 100, verschoben;
 public ArrayList obstacles = new ArrayList<Block>();
@@ -35,6 +37,9 @@ void setup() {
   level = new Level(bg, bgs);
   boden = new Image(loadImage("Images/Böden/Boden 1.png"), 0, 0);
   PImage[] playerAnimation = new PImage[6];
+  screens[0] = loadImage("Images/Screens/Noscreen.png");
+  screens[1] = loadImage("Images/Screens/Glitchscreen.png");
+  screens[2] = loadImage("Images/Screens/Bluescreen.png");
   addObstaclesLevel1();
   playerAnimation[0] = (loadImage("Images/Bossfight/Boss1/Tod2.png"));
   playerAnimation[1] = (loadImage("Images/Bossfight/Boss1/Tod3.png"));
@@ -52,9 +57,9 @@ void draw() {
   if (hasStarted) {
     spieler.update();
     if (spieler.x > 2000) {
-      if (levelNum == 1)
+      if (levelNum == 1) {
         loadLevel2();
-      else if (levelNum == 2)
+      } else if (levelNum == 2)
         loadLevel3();
       else if (levelNum == 3)
         loadLevelBF();
@@ -99,9 +104,9 @@ void draw() {
     }
     for (int i=0; i<bullets.size(); i++) {
       Bullet b = (Bullet)bullets.get(i);
-      if(b.dead)
+      if (b.dead)
       {
-       bullets.remove(b); 
+        bullets.remove(b);
       }
     }
     for (int i=0; i<items.size(); i++) {
@@ -120,6 +125,7 @@ void draw() {
     startScreen.display(0, 0);
   if (spieler.hasDied)
     gameOver.display(0, 0);
+  image(screens[loadingLevel],0,0);
 }
 
 void startOver() {
@@ -260,6 +266,7 @@ void addObstaclesLevel3() {
 }
 
 void addObstaclesBF() {
+  levelNum = 4;
   enemies.clear();
   obstacles.clear();
   PImage[] ememyAnim = new PImage[4];
@@ -375,16 +382,16 @@ void keyPressed()
   {
     keys[3] = true;
   }
-  if(key == 'x')
+  if (key == 'x')
   {
     if (spieler.eggs > 0)
-  {
-    PImage[] bulletAnim = new PImage[2];
-    bulletAnim[0] =  (loadImage("Images/Items/Spiegelei1.png"));    
-    bulletAnim[1] =  (loadImage("Images/Items/Spiegelei2.png"));
-    bullets.add(new Bullet(bulletAnim, spieler.x + (spieler.dx / 2), spieler.y + (spieler.dy / 2), mouseX, mouseY));
-    spieler.eggs--;
-  }
+    {
+      PImage[] bulletAnim = new PImage[2];
+      bulletAnim[0] =  (loadImage("Images/Items/Spiegelei1.png"));    
+      bulletAnim[1] =  (loadImage("Images/Items/Spiegelei2.png"));
+      bullets.add(new Bullet(bulletAnim, spieler.x + (spieler.dx / 2), spieler.y + (spieler.dy / 2), mouseX, mouseY));
+      spieler.eggs--;
+    }
   }
 }
 
@@ -415,4 +422,4 @@ void keyReleased()
 
 void mouseClicked() {
   hasStarted = true;
-  }
+}
