@@ -89,7 +89,7 @@ void draw() {
     if (boss)
     {
       gegner.update();
-      gegner.display((int)gegner.x, (int)gegner.y);
+      gegner.display((int)(gegner.x-verschoben), (int)gegner.y);
     }
 
     spieler.update();
@@ -143,7 +143,7 @@ void draw() {
     if (boss)
     {
       gegner.update();
-      gegner.display((int)gegner.x, (int)gegner.y);
+      gegner.display((int)(gegner.x- verschoben), (int)gegner.y);
     }
   } else if (!hasStarted)
   {
@@ -175,7 +175,7 @@ void draw() {
       paused = false;
       PImage[] endbossani =new PImage[1];
       endbossani[0] = (loadImage("Images/main char/Skaliert/Charakterstehen.png"));
-      gegner = new Endgegner(endbossani, 900, 400);
+      gegner = new Endgegner(endbossani, 950, 470);
     }
     spieler.x = playerx;
     spieler.y = playery;
@@ -464,6 +464,10 @@ void keyPressed()
     loadLevel2();
   if (key == 's')
     loadLevelBF();
+  if (key == 'd')
+    enemies.clear();
+  if (key == 'p')
+    startOver();
 }
 
 void keyReleased()
