@@ -1,6 +1,6 @@
-//import ddf.minim.*;
-//AudioPlayer player;
-//Minim minim;
+import ddf.minim.*;
+AudioPlayer player;
+Minim minim;
 Image boden;
 Image startScreen;
 Image gameOver;
@@ -25,8 +25,8 @@ void setup() {
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
   gameOver = new Image(loadImage("Images/Screens/Game Over Screen.png"), 0, 0);
   frameRate(24);
-  //minim = new Minim(this);
-  //player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
+  minim = new Minim(this);
+  player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
   //player.loop();
 
   PImage[] bgs = new PImage[1];
@@ -123,6 +123,7 @@ void draw() {
 }
 
 void startOver() {
+  levelNum = 1;
   obstacles = new ArrayList<Block>();
   items = new ArrayList<Item>();
   enemies = new ArrayList<Enemy>();
@@ -155,7 +156,7 @@ void addObstaclesLevel1() {
   vowelAnim[1] = (loadImage("Images/Gegner/Gegner3/bird_2.png"));  
   for (int i = 0; i < 3; i++)
   {
-    items.add(new Item( (loadImage("Images/Items/Diamond.png")), 300 + 20 * i, 500, 1));
+    items.add(new Item( (loadImage("Images/Items/Diamond.png")), 400 + 20 * i, 500, 1));
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 300 + 20 * i, 600, 0));
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 700 + 20 * i, 600, 0));
   }
