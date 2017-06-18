@@ -38,6 +38,6 @@ class StupidEnemy extends Enemy {
         }
       }
     }
-    y += vy;
+    //y += vy;
   }
 }
