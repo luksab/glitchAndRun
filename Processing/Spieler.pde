@@ -84,7 +84,7 @@ class Spieler extends Sprite {
     }
     for (int i = 0; i < eggs; i++)
     {
-      image((loadImage("Images/Items/heart.png")), 30 + 30 * i, 60);
+      image((loadImage("Images/Items/Spiegelei1.png")), 30 + 30 * i, 60);
     }
     if (fast)
     {
