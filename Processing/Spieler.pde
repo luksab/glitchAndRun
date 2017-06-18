@@ -156,9 +156,9 @@ class Spieler extends Sprite {
 
   void updaten()
   {    
-    if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
+    if (keys[0] && !keys[1] && imageCollision() != 2 && !(vy > 0 && imageCollision() == 8) && !(vy < 0 && imageCollision() == 5)) {
       vx = -vmax * pow(0.9, shield);
-    } else if (keys[1] && !keys[0] && imageCollision() != 1 && imageCollision()  != 4 && imageCollision() != 7) {
+    } else if (keys[1] && !keys[0] && imageCollision() != 1 && !(vy >= 0 && imageCollision() == 7) && !(vy <= 0 && imageCollision() == 4)) {
       vx = vmax * pow(0.9, (float)shield);
     } else
     {
@@ -177,7 +177,7 @@ class Spieler extends Sprite {
       x = level.levelbreite - dx;
     }
 
-    if (imageCollision() > 5)
+    if (imageCollision() == 6 || (vx >= 0 && imageCollision() == 7) || (vx <= 0 && imageCollision() == 8))
     {
       onGround = true;
     } else if (y < y0)

@@ -1,16 +1,17 @@
-import ddf.minim.*;
-AudioPlayer player;
-Minim minim;
+//import ddf.minim.*;
+//AudioPlayer player;
+//Minim minim;
 Image boden;
 Image startScreen;
-Image gameOver;
+Image gameOver, blitzLinks, blitzMitte, blitzRechts;
 Level level;
 Spieler spieler;
-int levelNum = 1;
+int levelNum = 1, pausetime = 0;
 boolean hasStarted = true;
 boolean hasStoped = false;
+boolean paused =false, boss = false;
 public  boolean[] keys = new boolean[4]; // left 0, right 1, up 2, space 3
-public float rand = 100, verschoben;
+public float rand = 100, verschoben, playerx, playery;
 public ArrayList obstacles = new ArrayList<Block>();
 public ArrayList items = new ArrayList<Item>();
 public ArrayList enemies = new ArrayList<Enemy>();
@@ -25,8 +26,8 @@ void setup() {
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
   gameOver = new Image(loadImage("Images/Screens/Game Over Screen.png"), 0, 0);
   frameRate(24);
-  minim = new Minim(this);
-  player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
+  //minim = new Minim(this);
+  //player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
   //player.loop();
 
   PImage[] bgs = new PImage[1];
@@ -45,11 +46,14 @@ void setup() {
   spieler = new Spieler(playerAnimation, 0, 100.0);
   //loadLevel2();
   //spieler.x = 500;
+  blitzLinks =  new Image(loadImage("Images/Background_environment/BlitzLinks.png"), 0, 0);
+  blitzMitte =  new Image(loadImage("Images/Background_environment/BlitzMitte.png"), 0, 0);
+  blitzRechts =  new Image(loadImage("Images/Background_environment/BlitzRechts.png"), 0, 0);
 }
 
 void draw() {
   scale(0.75);
-  if (hasStarted) {
+  if (hasStarted && !paused) {
     spieler.update();
     if (spieler.x > 2000) {
       if (levelNum == 1)
@@ -59,7 +63,10 @@ void draw() {
       else if (levelNum == 3)
         loadLevelBF();
     }
-
+    if(spieler.x > 1800 && levelNum == 4 && !boss)
+    {
+     paused = true; 
+    }
     move();
     level.display(1280 - verschoben/2, -30);
     boden.display(0, 0);
@@ -99,9 +106,9 @@ void draw() {
     }
     for (int i=0; i<bullets.size(); i++) {
       Bullet b = (Bullet)bullets.get(i);
-      if(b.dead)
+      if (b.dead)
       {
-       bullets.remove(b); 
+        bullets.remove(b);
       }
     }
     for (int i=0; i<items.size(); i++) {
@@ -116,8 +123,40 @@ void draw() {
       o.display(verschoben);
     }
     spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
+   
   } else if (!hasStarted)
+  {
     startScreen.display(0, 0);
+  } else if (paused)
+  {
+    if (pausetime == 0)
+    {
+      pausetime = millis(); 
+      enemies.clear();
+      playerx = spieler.x;
+      playery = spieler.y;
+    }
+    move();
+    level.display(1280 - verschoben/2, -30);
+    boden.display(0, 0);
+    spieler.display((int)playerx, (int)playery);
+    if (millis()-pausetime > 1000 && millis()-pausetime < 1200)
+    {
+      blitzMitte.display(0, 0);
+    } else if (millis()-pausetime > 1500 && millis()-pausetime < 1700)
+    {
+      blitzRechts.display(0, 0);
+    } else if (millis()-pausetime > 2100 && millis()-pausetime <= 2500)
+    {
+      blitzLinks.display(0, 0);
+    } else if (millis()-pausetime > 2500)
+    {
+      boss = true;
+      paused = false;
+    }
+    spieler.x = playerx;
+    spieler.y = playery;
+  }
   if (spieler.hasDied)
     gameOver.display(0, 0);
 }
@@ -271,8 +310,8 @@ void addObstaclesBF() {
   vowelAnim[0] = (loadImage("Images/Gegner/Gegner3/bird_1.png"));
   vowelAnim[1] = (loadImage("Images/Gegner/Gegner3/bird_2.png"));
   for (int i=0; i<10; i++) {
-    enemies.add(new Fowel(vowelAnim, 400, 200, 0+random(100), 1900-random(100), 10, 12+(int)random(5)));
-    enemies.add(new Fowel(vowelAnim, 400, 100, 50+random(100), 2000-random(100), 10, 17+(int)random(5)));
+    enemies.add(new Fowel(vowelAnim, 0+random(2000), 20+random(50), 0, 2000, 10, 12+(int)random(5)));
+    enemies.add(new Fowel(vowelAnim, 0+random(2000), 70+random(50), 0, 2000, 10, 17+(int)random(5)));
   }
   for (int i=0; i<50; i++) {
     enemies.add(new StupidEnemy(ememyAnim, 200+random(1000), 500, 200, 400, false));
@@ -283,7 +322,7 @@ void addObstaclesBF() {
 }
 
 void loadLevelBF() {
-  levelNum = 3;
+  levelNum = 4;
   addObstaclesBF();
 
   items.clear();
@@ -375,16 +414,16 @@ void keyPressed()
   {
     keys[3] = true;
   }
-  if(key == 'x')
+  if (key == 'x')
   {
     if (spieler.eggs > 0)
-  {
-    PImage[] bulletAnim = new PImage[2];
-    bulletAnim[0] =  (loadImage("Images/Items/Spiegelei1.png"));    
-    bulletAnim[1] =  (loadImage("Images/Items/Spiegelei2.png"));
-    bullets.add(new Bullet(bulletAnim, spieler.x + (spieler.dx / 2), spieler.y + (spieler.dy / 2), mouseX, mouseY));
-    spieler.eggs--;
-  }
+    {
+      PImage[] bulletAnim = new PImage[2];
+      bulletAnim[0] =  (loadImage("Images/Items/Spiegelei1.png"));    
+      bulletAnim[1] =  (loadImage("Images/Items/Spiegelei2.png"));
+      bullets.add(new Bullet(bulletAnim, spieler.x + (spieler.dx / 2), spieler.y + (spieler.dy / 2), mouseX, mouseY));
+      spieler.eggs--;
+    }
   }
 }
 
@@ -415,4 +454,4 @@ void keyReleased()
 
 void mouseClicked() {
   hasStarted = true;
-  }
+}

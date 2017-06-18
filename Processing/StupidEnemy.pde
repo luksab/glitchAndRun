@@ -7,6 +7,7 @@ class StupidEnemy extends Enemy {
     xmin = xMin;
     xmax = xMax;
     y0 = 570;
+    vx = vmove;
   }
   StupidEnemy(PImage[] pAnimation, float xpos, float ypos, float xMin, float xMax, boolean flies)
   {
@@ -18,11 +19,17 @@ class StupidEnemy extends Enemy {
 
   void updaten()
   {
-    if ((vmove > 0 && x >= xmax) || (vmove < 0 && x <= xmin || imageCollision() % 3 == 0))
+    if ((vx > 0 && x >= xmax) && imageCollision() != 1)
     {
-      vmove = -vmove;
+      vx = vmove;
+    } else if ((vmove < 0 && x <= xmin) && imageCollision() != 2)
+    {
+      vx = -vmove;
+    } else
+    {
+      vx = 0;
     }
-    x += vmove;
+    x += vx;
     if (!flying)
     {
       if (!onGround)
@@ -32,11 +39,10 @@ class StupidEnemy extends Enemy {
           onGround = true;
           y = y0;
           vy=0;
-        }else if(imageCollision() > 5)
+        } else if (imageCollision() > 5)
         {
           vy = 0;
-        }
-        else
+        } else
         {
           vy += g;
         }
