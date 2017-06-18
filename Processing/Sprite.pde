@@ -64,7 +64,7 @@ class Sprite {
           c +=6;
           break; // unten
         }
-        if (vy < 0 && y >= k.yTop  && y <= k.yBottom)
+        if (vy < 0 &&y >= k.yTop  && y <= k.yBottom)
         {
           c +=3; // oben
           break;

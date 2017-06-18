@@ -1,8 +1,8 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
-  float v0 = 7.0, vmax, vjump = -15.0, jumpfactor = 1;
-  boolean right = true, jump = false, gotKey = false, fast = false;
-  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0;
+  float v0 = 7.0, vmax, vjump = -15.0;
+  boolean right = true, jump = false, gotKey = false, fast = false, hasDied=false;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0, food = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -17,17 +17,30 @@ class Spieler extends Sprite {
 
   void collision()
   {
-    for (Object o : enemies)
+    for (int i= 0; i<enemies.size(); i++)
     {
-      Enemy e = (Enemy)o;
+      Enemy e = (Enemy)enemies.get(i);
       if (e.x <= x + dx && e.x + e.dx >= x && e.y <= y + dy && e.y + e.dy >= y)
       {
         if (keys[3])
         {
+          if (e.getClass() == Eggsplosion.class)
+          {
+            die();
+          } else if (e.getClass() == Ei.class && !onGround)
+          {
+            eggs++;
+          }
           e.dead = true;
         } else
         {
-          die();
+          if (e.getClass() == Ei.class)
+          {
+            e.explode();
+          } else
+          {
+            die();
+          }
         }
       }
     }
@@ -41,11 +54,19 @@ class Spieler extends Sprite {
       if (shield >0)
       {
         shield--;
-      } else
+      } else if (lives > 0)
       {
         lives--;
+      } else
+      {
+        actuallyDie();
       }
     }
+  }
+
+  void actuallyDie()
+  {
+    hasDied = true;
   }
 
   void display(int pX, int pY) {
@@ -57,9 +78,17 @@ class Spieler extends Sprite {
     {
       image((loadImage("Images/Items/Shield.png")), 30 + 30 * i, 30);
     }
+    for (int i = 0; i < food; i++)
+    {
+      image((loadImage("Images/Items/food.png")), 30 + 30 * i, 90);
+    }
+    for (int i = 0; i < eggs; i++)
+    {
+      image((loadImage("Images/Items/heart.png")), 30 + 30 * i, 60);
+    }
     if (fast)
     {
-      image((loadImage("Images/Items/Speed.png")), 30, 60);
+      image((loadImage("Images/Items/Speed.png")), 1060, 12);
     }
     for (int i = 0; i < coins; i++)
     {
@@ -103,7 +132,7 @@ class Spieler extends Sprite {
           diamonds++;
           break;
         case 2: 
-          jumpfactor += 0.5; 
+          food++;
           break;
         case 3: 
           lives ++;
@@ -128,12 +157,16 @@ class Spieler extends Sprite {
   void updaten()
   {    
     if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
-      vx = -vmax;
+      vx = -vmax * pow(0.9, shield);
     } else if (keys[1] && !keys[0] && imageCollision() != 1 && imageCollision()  != 4 && imageCollision() != 7) {
-      vx = vmax;
+      vx = vmax * pow(0.9, (float)shield);
     } else
     {
       vx = 0;
+    }
+    if (keys[3])
+    {
+      vx *= 0.5;
     }
     x += vx;
     if (x < 0)
@@ -153,12 +186,12 @@ class Spieler extends Sprite {
     }
 
     jump = false;
-    if (keys[2] && onGround)
+    if (keys[2] && onGround && !keys[3])
     {
-      vy = vjump * jumpfactor;
-      jumpfactor = 1;
+      vy = vjump * pow(1.25, food);
       jump = true;
       onGround = false;
+      food = 0;
     } else
     {
       if (onGround)

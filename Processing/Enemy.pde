@@ -15,6 +15,9 @@ class Enemy extends Sprite{
     flying = flies;
   }
   
+  void explode()
+  {}
+  
   void update()
   {
    updaten();
