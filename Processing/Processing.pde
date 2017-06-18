@@ -148,7 +148,7 @@ void addObstaclesLevel1() {
   vowelAnim[1] = (loadImage("Images/Gegner/Gegner3/bird_2.png"));  
   for (int i = 0; i < 3; i++)
   {
-    items.add(new Item( (loadImage("Images/Items/Diamond.png")), 300 + 20 * i, 500, 1));
+    items.add(new Item( (loadImage("Images/Items/Diamond.png")), 400 + 20 * i, 500, 1));
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 300 + 20 * i, 600, 0));
     items.add(new Item( (loadImage("Images/Items/Coin.png")), 700 + 20 * i, 600, 0));
   }
