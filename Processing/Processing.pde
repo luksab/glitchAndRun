@@ -85,12 +85,6 @@ void draw() {
       Block b = (Block)obstacles.get(i);
       b.display();
     }
-    
-    if(boss)
-    {
-     gegner.update();
-     gegner.display((int)gegner.x, (int)gegner.y);
-    }
 
     spieler.update();
     if (spieler.x > 2000 && levelNum == 1)
@@ -140,6 +134,11 @@ void draw() {
       o.display(verschoben);
     }
     spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
+    if(boss)
+    {
+     gegner.update();
+     gegner.display((int)gegner.x, (int)gegner.y);
+    }
   } else if (!hasStarted)
   {
     startScreen.display(0, 0);
@@ -155,7 +154,6 @@ void draw() {
     move();
     level.display(1280 - verschoben/2, -30);
     boden.display(0, 0);
-    spieler.display((int)playerx, (int)playery);
     if (millis()-pausetime > 1000 && millis()-pausetime < 1200)
     {
       blitzMitte.display(0, 0);
@@ -171,10 +169,11 @@ void draw() {
       paused = false;
       PImage[] endbossani =new PImage[1];
       endbossani[0] = (loadImage("Images/main char/Skaliert/Charakterstehen.png"));
-      gegner = new Endgegner(endbossani, 900, 570);
+      gegner = new Endgegner(endbossani, 900, 400);
     }
     spieler.x = playerx;
     spieler.y = playery;
+    spieler.display((int)(playerx - versschieben), (int)playery);
   }
   if (spieler.hasDied)
     gameOver.display(0, 0);
