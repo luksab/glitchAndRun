@@ -66,7 +66,7 @@ void draw() {
       if (levelNum == 1) {
         loadLevel2();
       } else if (levelNum == 2) {
-        loadLevel3();
+        loadLevelBF();
       } else if (levelNum == 3) {
         loadingLevel = 3;
         framesSince = 0;
