@@ -97,6 +97,13 @@ void draw() {
       b.update();
       b.display((int)(b.x - verschoben), (int)b.y);
     }
+    for (int i=0; i<bullets.size(); i++) {
+      Bullet b = (Bullet)bullets.get(i);
+      if(b.dead)
+      {
+       bullets.remove(b); 
+      }
+    }
     for (int i=0; i<items.size(); i++) {
       Item o = (Item)items.get(i);
       if (o.dead)

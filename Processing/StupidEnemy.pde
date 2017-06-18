@@ -18,14 +18,11 @@ class StupidEnemy extends Enemy {
 
   void updaten()
   {
-    if ((vmove > 0 && x >= xmax) || (vmove < 0 && x <= xmin))
+    if ((vmove > 0 && x >= xmax) || (vmove < 0 && x <= xmin || imageCollision() % 3 == 0))
     {
       vmove = -vmove;
     }
-    if(imageCollision() % 3 == 0)
-    {
     x += vmove;
-    }
     if (!flying)
     {
       if (!onGround)

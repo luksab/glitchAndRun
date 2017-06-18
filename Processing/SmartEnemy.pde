@@ -28,9 +28,9 @@ class SmartEnemy extends Enemy
     }
     if (imageCollision() % 3 == 0)
     {
-      x += vmove;
+      vx = 0;
     }
-
+  x += vx;
     if (!flying)
     {
       if (y >= y0)
