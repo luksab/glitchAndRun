@@ -85,11 +85,11 @@ void draw() {
       Block b = (Block)obstacles.get(i);
       b.display();
     }
-    
-    if(boss)
+
+    if (boss)
     {
-     gegner.update();
-     gegner.display((int)gegner.x, (int)gegner.y);
+      gegner.update();
+      gegner.display((int)gegner.x, (int)gegner.y);
     }
 
     spieler.update();
@@ -455,6 +455,10 @@ void keyPressed()
       spieler.eggs--;
     }
   }
+  if (key == 'a')
+    loadLevel2();
+  if (key == 's')
+    loadLevelBF();
 }
 
 void keyReleased()
