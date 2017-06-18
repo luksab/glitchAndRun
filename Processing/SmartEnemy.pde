@@ -26,7 +26,7 @@ class SmartEnemy extends Enemy
     {
       vx = 0;
     }
-    if ((vx > 0 && imageCollision() % 3 == 1 ) || (vx < 0 && imageCollision() % 3 == 2))
+    if ((vx > 0 && imageCollision() == 1 ) || (vx < 0 && imageCollision() == 2))
     {
       vx = 0;
     }
