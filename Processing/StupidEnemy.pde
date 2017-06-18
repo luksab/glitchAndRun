@@ -18,7 +18,7 @@ class StupidEnemy extends Enemy {
 
   void updaten()
   {
-    if ((vmove > 0 && x >= xmax) || (vmove < 0 && x <= xmin))
+    if ((vmove > 0 && x >= xmax) || (vmove < 0 && x <= xmin || imageCollision() % 3 == 0))
     {
       vmove = -vmove;
     }
@@ -32,12 +32,16 @@ class StupidEnemy extends Enemy {
           onGround = true;
           y = y0;
           vy=0;
-        } else
+        }else if(imageCollision() > 5)
+        {
+          vy = 0;
+        }
+        else
         {
           vy += g;
         }
       }
     }
-    //y += vy;
+    y += vy;
   }
 }

@@ -26,13 +26,19 @@ class SmartEnemy extends Enemy
     {
       vx = 0;
     }
-    x += vx;
-
+    if (imageCollision() % 3 == 0)
+    {
+      vx = 0;
+    }
+  x += vx;
     if (!flying)
     {
       if (y >= y0)
       {
         y = y0;
+      } else if (imageCollision() > 5)
+      {
+        vy = 0;
       } else
       {
         vy += g;

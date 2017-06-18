@@ -28,7 +28,10 @@ class Ei extends StupidEnemy{
           y = y0;
           vy=0;
           time = 1;
-        } else
+        } else if(imageCollision() > 5)
+        {
+          onGround = true;
+        }else
         {
           vy += g;
         }
