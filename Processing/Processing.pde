@@ -65,6 +65,8 @@ void draw() {
         loadLevel2();
       else if (levelNum == 2)
         loadLevel3();
+      else if (levelNum == 3)
+        loadLevelBF();
     }
 
     move();
@@ -123,6 +125,7 @@ void addObstaclesLevel1() {
   ememyAnim[1] = (loadImage("Images/Gegner/Gegner1/enemy_swing_2.png"));
   ememyAnim[2] = (loadImage("Images/Gegner/Gegner1/enemy_swing_3.png"));
   ememyAnim[3] = (loadImage("Images/Gegner/Gegner1/enemy_swing_4.png"));
+<<<<<<< HEAD
   PImage[] vowelAnim = new PImage[2];
   vowelAnim[0] = (loadImage("Images/Gegner/Gegner3/bird_1.png"));
   vowelAnim[1] = (loadImage("Images/Gegner/Gegner3/bird_2.png"));
@@ -130,6 +133,10 @@ void addObstaclesLevel1() {
   enemies.add(new SmartEnemy(ememyAnim, 400, 400, 10, false));
   enemies.add(new Fowel(vowelAnim, 400, 200, 0, 1000, 10, 12));
   enemies.add(new Fowel(vowelAnim, 400, 100, 100, 1100, 10, 17));
+=======
+  enemies.add(new StupidEnemy(ememyAnim, 200+random(100), 500, 200, 400, false));
+  enemies.add(new SmartEnemy(ememyAnim, 400+random(100), 400, 10, false));
+>>>>>>> 523d5c65439a19e7747033be53649bd1c0da1ef8
   obstacles.add(new Block(200, 550));  
   obstacles.add(new Block(400, 430));
 }
@@ -162,6 +169,35 @@ void addObstaclesLevel3() {
   obstacles.add(new Block(400, 430));
 }
 
+void addObstaclesBF() {
+  enemies.clear();
+  obstacles.clear();
+  PImage[] ememyAnim = new PImage[4];
+  ememyAnim[0] = (loadImage("Images/Gegner/Gegner1/enemy_swing_1.png"));
+  ememyAnim[1] = (loadImage("Images/Gegner/Gegner1/enemy_swing_2.png"));
+  ememyAnim[2] = (loadImage("Images/Gegner/Gegner1/enemy_swing_3.png"));
+  ememyAnim[3] = (loadImage("Images/Gegner/Gegner1/enemy_swing_4.png"));
+  for (int i=0; i<50; i++) {
+    enemies.add(new StupidEnemy(ememyAnim, 200+random(1000), 500, 200, 400, false));
+    enemies.add(new SmartEnemy(ememyAnim, 400+random(1000), 400, 10, false));
+    obstacles.add(new Block(200, 550));  
+    obstacles.add(new Block(400, 430));
+  }
+}
+
+void loadLevelBF() {
+  levelNum = 3;
+  addObstaclesBF();
+
+  items.clear();
+  items.add(new Item( (loadImage("Images/Items/Diamond.png")), 100, 600, 1));
+  PImage[] bgs = new PImage[1];
+  bgs[0] = loadImage("Images/Level_2/Trees_2.png");
+  PImage bg = loadImage("Images/Level_2/BG lvl 2.png");
+  level = new Level(bg, bgs);
+  boden = new Image(loadImage("Images/Böden/Boden 3.png"), 0, 0);
+  spieler.x = 0;
+}
 void loadLevel3() {
   levelNum = 3;
   addObstaclesLevel3();
