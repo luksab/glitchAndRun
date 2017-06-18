@@ -2,7 +2,7 @@ import java.awt.Rectangle;
 class Spieler extends Sprite {
   float v0 = 7.0, vmax, vjump = -15.0;
   boolean right = true, jump = false, gotKey = false, fast = false, hasDied=false;
-  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0, food = 0;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0, food = 0, gegnerTime = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -41,6 +41,24 @@ class Spieler extends Sprite {
           {
             die();
           }
+        }
+      }
+    }
+
+    if (boss)
+    {
+      if (gegner.x <= x + dx && gegner.x + gegner.dx >= x && gegner.y <= y + dy && gegner.y + gegner.dy >= y)
+      {
+        if (keys[3])
+        {
+          if (millis()-gegnerTime >= 1000)
+          {
+            gegner.leben--;
+            gegnerTime = millis();
+          }
+        } else
+        {
+          die();
         }
       }
     }
@@ -156,9 +174,9 @@ class Spieler extends Sprite {
 
   void updaten()
   {    
-    if (keys[0] && !keys[1] && imageCollision() != 2 && imageCollision()  != 5 && imageCollision() != 8) {
+    if (keys[0] && !keys[1] && imageCollision() != 2 && !(vy > 0 && imageCollision() == 8) && !(vy < 0 && imageCollision() == 5)) {
       vx = -vmax * pow(0.9, shield);
-    } else if (keys[1] && !keys[0] && imageCollision() != 1 && imageCollision()  != 4 && imageCollision() != 7) {
+    } else if (keys[1] && !keys[0] && imageCollision() != 1 && !(vy >= 0 && imageCollision() == 7) && !(vy <= 0 && imageCollision() == 4)) {
       vx = vmax * pow(0.9, (float)shield);
     } else
     {
@@ -177,7 +195,7 @@ class Spieler extends Sprite {
       x = level.levelbreite - dx;
     }
 
-    if (imageCollision() > 5)
+    if (imageCollision() == 6 || (vx >= 0 && imageCollision() == 7) || (vx <= 0 && imageCollision() == 8))
     {
       onGround = true;
     } else if (y < y0)
