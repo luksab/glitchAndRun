@@ -31,6 +31,16 @@ class Bullet extends Sprite {
         dead = true;
       }
     }
+    if(boss)
+    {
+      if(gegner.x <= x + dx && gegner.x + gegner.dx >= x && gegner.y <= y + dy && gegner.y + gegner.dy >= y)
+      {
+        animation[0]=loadImage("Images/Gegner/Gegner3/eggsplosion.png");
+        animation[1]=loadImage("Images/Gegner/Gegner3/eggsplosion.png");
+        gegner.leben--;
+        dead = true;
+      }
+    }
   }
 
   void updaten()

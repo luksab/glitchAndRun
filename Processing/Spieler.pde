@@ -2,7 +2,7 @@ import java.awt.Rectangle;
 class Spieler extends Sprite {
   float v0 = 7.0, vmax, vjump = -15.0;
   boolean right = true, jump = false, gotKey = false, fast = false, hasDied=false;
-  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0, food = 0;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0, food = 0, gegnerTime = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -41,6 +41,24 @@ class Spieler extends Sprite {
           {
             die();
           }
+        }
+      }
+    }
+
+    if (boss)
+    {
+      if (gegner.x <= x + dx && gegner.x + gegner.dx >= x && gegner.y <= y + dy && gegner.y + gegner.dy >= y)
+      {
+        if (keys[3])
+        {
+          if (millis()-gegnerTime >= 1000)
+          {
+            gegner.leben--;
+            gegnerTime = millis();
+          }
+        } else
+        {
+          die();
         }
       }
     }

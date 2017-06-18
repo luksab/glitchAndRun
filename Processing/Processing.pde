@@ -7,9 +7,12 @@ Image gameOver, blitzLinks, blitzMitte, blitzRechts;
 Level level;
 Spieler spieler;
 int levelNum = 1, pausetime = 0;
+int loadingLevel, framesSince;
 boolean hasStarted = true;
 boolean hasStoped = false;
 boolean paused =false, boss = false;
+Endgegner gegner;
+public PImage[] screens = new PImage[4];
 public  boolean[] keys = new boolean[4]; // left 0, right 1, up 2, space 3
 public float rand = 100, verschoben, playerx, playery;
 public ArrayList obstacles = new ArrayList<Block>();
@@ -36,6 +39,10 @@ void setup() {
   level = new Level(bg, bgs);
   boden = new Image(loadImage("Images/Böden/Boden 1.png"), 0, 0);
   PImage[] playerAnimation = new PImage[6];
+  screens[0] = loadImage("Images/Screens/NoScreen.png");
+  screens[1] = loadImage("Images/Screens/Glitchscreen.png");
+  screens[2] = loadImage("Images/Screens/Bluescreen.png");
+  screens[3] = loadImage("Images/Screens/HackedScreen1.png");
   addObstaclesLevel1();
   playerAnimation[0] = (loadImage("Images/Bossfight/Boss1/Tod2.png"));
   playerAnimation[1] = (loadImage("Images/Bossfight/Boss1/Tod3.png"));
@@ -53,19 +60,23 @@ void setup() {
 
 void draw() {
   scale(0.75);
-  if (hasStarted && !paused) {
+    if (hasStarted && !paused && loadingLevel == 0) {
     spieler.update();
     if (spieler.x > 2000) {
-      if (levelNum == 1)
+      if (levelNum == 1) {
         loadLevel2();
-      else if (levelNum == 2)
+      } else if (levelNum == 2) {
         loadLevel3();
-      else if (levelNum == 3)
+      } else if (levelNum == 3) {
+        loadingLevel = 3;
+        framesSince = 0;
+        print(loadingLevel);
         loadLevelBF();
+      }
     }
-    if(spieler.x > 1800 && levelNum == 4 && !boss)
+    if (spieler.x > 1800 && levelNum == 4 && !boss)
     {
-     paused = true; 
+      paused = true;
     }
     move();
     level.display(1280 - verschoben/2, -30);
@@ -123,7 +134,6 @@ void draw() {
       o.display(verschoben);
     }
     spieler.display((int)(spieler.x - verschoben), (int)spieler.y);
-   
   } else if (!hasStarted)
   {
     startScreen.display(0, 0);
@@ -153,12 +163,21 @@ void draw() {
     {
       boss = true;
       paused = false;
+      PImage[] endbossani =new PImage[1];
+      endbossani[0] = (loadImage("Images/main char/Skaliert/Charakterstehen.png"));
+      gegner = new Endgegner(endbossani, 900, 570);
     }
     spieler.x = playerx;
     spieler.y = playery;
   }
   if (spieler.hasDied)
     gameOver.display(0, 0);
+  framesSince++;
+  print(framesSince);
+  if (framesSince <= 20)
+    image(screens[loadingLevel], 0, 0);
+  else
+    loadingLevel = 0;
 }
 
 void startOver() {
@@ -299,6 +318,7 @@ void addObstaclesLevel3() {
 }
 
 void addObstaclesBF() {
+  levelNum = 4;
   enemies.clear();
   obstacles.clear();
   PImage[] ememyAnim = new PImage[4];
@@ -335,6 +355,8 @@ void loadLevelBF() {
   spieler.x = 0;
 }
 void loadLevel3() {
+  loadingLevel = 2;
+  framesSince = 0;
   levelNum = 3;
   addObstaclesLevel3();
 
@@ -349,6 +371,8 @@ void loadLevel3() {
 }
 
 void loadLevel2() {
+  loadingLevel = 1;
+  framesSince = 0;
   levelNum = 2;
   addObstaclesLevel2();
 
