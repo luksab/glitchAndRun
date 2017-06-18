@@ -116,6 +116,7 @@ void draw() {
 }
 
 void startOver() {
+  levelNum = 1;
   obstacles = new ArrayList<Block>();
   items = new ArrayList<Item>();
   enemies = new ArrayList<Enemy>();
