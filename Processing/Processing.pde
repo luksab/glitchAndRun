@@ -14,6 +14,7 @@ public float rand = 100, verschoben;
 public ArrayList obstacles = new ArrayList<Block>();
 public ArrayList items = new ArrayList<Item>();
 public ArrayList enemies = new ArrayList<Enemy>();
+public ArrayList bullets = new ArrayList<Bullet>();
 
 void setup() {
   noSmooth();
@@ -90,6 +91,11 @@ void draw() {
       Enemy e = (Enemy)enemies.get(i);
       e.update();
       e.display((int)(e.x - verschoben), (int)e.y);
+    }
+    for (int i=0; i<bullets.size(); i++) {
+      Bullet b = (Bullet)bullets.get(i);
+      b.update();
+      b.display((int)(b.x - verschoben), (int)b.y);
     }
     for (int i=0; i<items.size(); i++) {
       Item o = (Item)items.get(i);
@@ -361,6 +367,17 @@ void keyPressed()
   {
     keys[3] = true;
   }
+  if(key == 'x')
+  {
+    if (spieler.eggs > 0)
+  {
+    PImage[] bulletAnim = new PImage[2];
+    bulletAnim[0] =  (loadImage("Images/Items/Spiegelei1.png"));    
+    bulletAnim[1] =  (loadImage("Images/Items/Spiegelei2.png"));
+    bullets.add(new Bullet(bulletAnim, spieler.x + (spieler.dx / 2), spieler.y + (spieler.dy / 2), mouseX, mouseY));
+    spieler.eggs--;
+  }
+  }
 }
 
 void keyReleased()
@@ -390,4 +407,4 @@ void keyReleased()
 
 void mouseClicked() {
   hasStarted = true;
-}
+  }

@@ -22,7 +22,10 @@ class StupidEnemy extends Enemy {
     {
       vmove = -vmove;
     }
+    if(imageCollision() % 3 == 0)
+    {
     x += vmove;
+    }
     if (!flying)
     {
       if (!onGround)
@@ -32,12 +35,16 @@ class StupidEnemy extends Enemy {
           onGround = true;
           y = y0;
           vy=0;
-        } else
+        }else if(imageCollision() > 5)
+        {
+          vy = 0;
+        }
+        else
         {
           vy += g;
         }
       }
     }
-    //y += vy;
+    y += vy;
   }
 }
