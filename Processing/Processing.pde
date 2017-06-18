@@ -1,6 +1,6 @@
-//import ddf.minim.*;
-//AudioPlayer player;
-//Minim minim;
+import ddf.minim.*;
+AudioPlayer player;
+Minim minim;
 Image boden;
 Image startScreen;
 Image gameOver;
@@ -25,8 +25,8 @@ void setup() {
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
   gameOver = new Image(loadImage("Images/Screens/Game Over Screen.png"), 0, 0);
   frameRate(24);
-  //minim = new Minim(this);
-  //player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
+  minim = new Minim(this);
+  player = minim.loadFile("Sound/Music/Gamemusic.mp3", 2048);
   //player.loop();
 
   PImage[] bgs = new PImage[1];
