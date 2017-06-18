@@ -23,8 +23,8 @@ public ArrayList bullets = new ArrayList<Bullet>();
 void setup() {
   noSmooth();
   //size(1650, 960);
-  //size(1100, 640);
-  size(825, 480);
+  size(1100, 640);
+  //size(825, 480);
   pixelDensity(1);
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
   gameOver = new Image(loadImage("Images/Screens/Game Over Screen.png"), 0, 0);
@@ -59,8 +59,13 @@ void setup() {
 }
 
 void draw() {
+<<<<<<< HEAD
   scale(0.75);
     if (hasStarted && !paused && loadingLevel == 0) {
+=======
+  scale(1);
+  if (hasStarted && loadingLevel == 0) {
+>>>>>>> db45bc7a84507ec8b0f29e32dbe5c71033e9da21
     spieler.update();
     if (spieler.x > 2000) {
       if (levelNum == 1) {
