@@ -59,13 +59,8 @@ void setup() {
 }
 
 void draw() {
-<<<<<<< HEAD
-  scale(0.75);
-    if (hasStarted && !paused && loadingLevel == 0) {
-=======
   scale(1);
-  if (hasStarted && loadingLevel == 0) {
->>>>>>> db45bc7a84507ec8b0f29e32dbe5c71033e9da21
+  if (hasStarted && !paused && loadingLevel == 0) {
     spieler.update();
     if (spieler.x > 2000) {
       if (levelNum == 1) {
@@ -89,6 +84,12 @@ void draw() {
     for (int i=0; i<obstacles.size(); i++) {
       Block b = (Block)obstacles.get(i);
       b.display();
+    }
+    
+    if(boss)
+    {
+     gegner.update();
+     gegner.display((int)gegner.x, (int)gegner.y);
     }
 
     spieler.update();

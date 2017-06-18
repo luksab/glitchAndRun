@@ -7,6 +7,9 @@ class Endgegner extends Sprite{
   
   void update()
   {
-    
+    if(leben <= 0)
+    {
+     gegner = null; 
+    }
   }
 }
