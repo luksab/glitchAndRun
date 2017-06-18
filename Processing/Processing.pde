@@ -18,7 +18,7 @@ public ArrayList enemies = new ArrayList<Enemy>();
 void setup() {
   noSmooth();
   //size(1650, 960);
-  size(1100,640);
+  size(1100, 640);
   //size(825,480);
   pixelDensity(1);
   startScreen = new Image(loadImage("Images/Screens/Startscreen.png"), 0, 0);
@@ -123,8 +123,13 @@ void addObstaclesLevel1() {
   ememyAnim[1] = (loadImage("Images/Gegner/Gegner1/enemy_swing_2.png"));
   ememyAnim[2] = (loadImage("Images/Gegner/Gegner1/enemy_swing_3.png"));
   ememyAnim[3] = (loadImage("Images/Gegner/Gegner1/enemy_swing_4.png"));
+  PImage[] vowelAnim = new PImage[2];
+  vowelAnim[0] = (loadImage("Images/Gegner/Gegner3/bird_1.png"));
+  vowelAnim[1] = (loadImage("Images/Gegner/Gegner3/bird_2.png"));
   enemies.add(new StupidEnemy(ememyAnim, 200, 500, 200, 400, false));
   enemies.add(new SmartEnemy(ememyAnim, 400, 400, 10, false));
+  enemies.add(new Fowel(vowelAnim, 400, 200, 0, 1000, 10, 12));
+  enemies.add(new Fowel(vowelAnim, 400, 100, 100, 1100, 10, 17));
   obstacles.add(new Block(200, 550));  
   obstacles.add(new Block(400, 430));
 }

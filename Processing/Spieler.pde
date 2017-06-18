@@ -2,7 +2,7 @@ import java.awt.Rectangle;
 class Spieler extends Sprite {
   float v0 = 7.0, vmax, vjump = -15.0, jumpfactor = 1;
   boolean right = true, jump = false, gotKey = false, fast = false, hasDied=false;
-  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -17,17 +17,27 @@ class Spieler extends Sprite {
 
   void collision()
   {
-    for (Object o : enemies)
+    for (int i= 0;i<enemies.size();i++)
     {
-      Enemy e = (Enemy)o;
+      Enemy e = (Enemy)enemies.get(i);
       if (e.x <= x + dx && e.x + e.dx >= x && e.y <= y + dy && e.y + e.dy >= y)
       {
         if (keys[3])
         {
+          if (e.getClass() == Ei.class && !onGround)
+          {
+            eggs++;
+          }
           e.dead = true;
         } else
         {
-          die();
+          if (e.getClass() == Ei.class)
+          {
+            e.explode();
+          } else
+          {
+            die();
+          }
         }
       }
     }
@@ -41,16 +51,16 @@ class Spieler extends Sprite {
       if (shield >0)
       {
         shield--;
-      } else if(lives > 0)
+      } else if (lives > 0)
       {
         lives--;
-      }else
+      } else
       {
-       actuallyDie(); 
+        actuallyDie();
       }
     }
   }
-  
+
   void actuallyDie()
   {
     hasDied = true;
@@ -142,6 +152,10 @@ class Spieler extends Sprite {
     } else
     {
       vx = 0;
+    }
+    if (keys[3])
+    {
+      vx *= 0.5;
     }
     x += vx;
     if (x < 0)
