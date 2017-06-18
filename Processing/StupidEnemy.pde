@@ -19,12 +19,12 @@ class StupidEnemy extends Enemy {
 
   void updaten()
   {
-    if ((vx > 0 && x >= xmax) && imageCollision() != 1)
+    if ((vx > 0 && x >= xmax) || imageCollision() != 1 || (vmove < 0 && x <= xmin) || imageCollision() != 2)
+    {
+      vmove = -vmove;
+    } if (imageCollision() != 1 && imageCollision() != 2)
     {
       vx = vmove;
-    } else if ((vmove < 0 && x <= xmin) && imageCollision() != 2)
-    {
-      vx = -vmove;
     } else
     {
       vx = 0;
