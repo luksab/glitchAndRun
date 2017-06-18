@@ -17,14 +17,17 @@ class Spieler extends Sprite {
 
   void collision()
   {
-    for (int i= 0;i<enemies.size();i++)
+    for (int i= 0; i<enemies.size(); i++)
     {
       Enemy e = (Enemy)enemies.get(i);
       if (e.x <= x + dx && e.x + e.dx >= x && e.y <= y + dy && e.y + e.dy >= y)
       {
         if (keys[3])
         {
-          if (e.getClass() == Ei.class && !onGround)
+          if (e.getClass() == Eggsplosion.class)
+          {
+            die();
+          } else if (e.getClass() == Ei.class && !onGround)
           {
             eggs++;
           }
