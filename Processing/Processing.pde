@@ -125,7 +125,6 @@ void addObstaclesLevel1() {
   ememyAnim[1] = (loadImage("Images/Gegner/Gegner1/enemy_swing_2.png"));
   ememyAnim[2] = (loadImage("Images/Gegner/Gegner1/enemy_swing_3.png"));
   ememyAnim[3] = (loadImage("Images/Gegner/Gegner1/enemy_swing_4.png"));
-<<<<<<< HEAD
   PImage[] vowelAnim = new PImage[2];
   vowelAnim[0] = (loadImage("Images/Gegner/Gegner3/bird_1.png"));
   vowelAnim[1] = (loadImage("Images/Gegner/Gegner3/bird_2.png"));
@@ -133,10 +132,8 @@ void addObstaclesLevel1() {
   enemies.add(new SmartEnemy(ememyAnim, 400, 400, 10, false));
   enemies.add(new Fowel(vowelAnim, 400, 200, 0, 1000, 10, 12));
   enemies.add(new Fowel(vowelAnim, 400, 100, 100, 1100, 10, 17));
-=======
   enemies.add(new StupidEnemy(ememyAnim, 200+random(100), 500, 200, 400, false));
   enemies.add(new SmartEnemy(ememyAnim, 400+random(100), 400, 10, false));
->>>>>>> 523d5c65439a19e7747033be53649bd1c0da1ef8
   obstacles.add(new Block(200, 550));  
   obstacles.add(new Block(400, 430));
 }

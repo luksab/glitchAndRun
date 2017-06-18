@@ -1,8 +1,8 @@
 import java.awt.Rectangle;
 class Spieler extends Sprite {
-  float v0 = 7.0, vmax, vjump = -15.0, jumpfactor = 1;
+  float v0 = 7.0, vmax, vjump = -15.0;
   boolean right = true, jump = false, gotKey = false, fast = false, hasDied=false;
-  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0;
+  int coins = 0, diamonds = 0, shield = 0, lives = 3, time = 0, fastTime = 0, eggs = 0, food = 0;
 
   Spieler(PImage[] pAnimation, float xPos, float yPos)
   {
@@ -75,9 +75,17 @@ class Spieler extends Sprite {
     {
       image((loadImage("Images/Items/Shield.png")), 30 + 30 * i, 30);
     }
+    for (int i = 0; i < food; i++)
+    {
+      image((loadImage("Images/Items/food.png")), 30 + 30 * i, 90);
+    }
+    for (int i = 0; i < eggs; i++)
+    {
+      image((loadImage("Images/Items/heart.png")), 30 + 30 * i, 60);
+    }
     if (fast)
     {
-      image((loadImage("Images/Items/Speed.png")), 30, 60);
+      image((loadImage("Images/Items/Speed.png")), 1060, 12);
     }
     for (int i = 0; i < coins; i++)
     {
@@ -121,7 +129,7 @@ class Spieler extends Sprite {
           diamonds++;
           break;
         case 2: 
-          jumpfactor += 0.2; 
+          food++;
           break;
         case 3: 
           lives ++;
@@ -177,10 +185,10 @@ class Spieler extends Sprite {
     jump = false;
     if (keys[2] && onGround && !keys[3])
     {
-      vy = vjump * jumpfactor;
-      jumpfactor = 1;
+      vy = vjump * pow(1.25, food);
       jump = true;
       onGround = false;
+      food = 0;
     } else
     {
       if (onGround)
