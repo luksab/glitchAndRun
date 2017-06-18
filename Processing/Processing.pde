@@ -7,10 +7,10 @@ Image gameOver;
 Level level;
 Spieler spieler;
 int levelNum = 1;
-int loadingLevel = 0;
+int loadingLevel, framesSince;
 boolean hasStarted = true;
 boolean hasStoped = false;
-public PImage[] screens = new PImage[3];
+public PImage[] screens = new PImage[4];
 public  boolean[] keys = new boolean[4]; // left 0, right 1, up 2, space 3
 public float rand = 100, verschoben;
 public ArrayList obstacles = new ArrayList<Block>();
@@ -37,9 +37,10 @@ void setup() {
   level = new Level(bg, bgs);
   boden = new Image(loadImage("Images/Böden/Boden 1.png"), 0, 0);
   PImage[] playerAnimation = new PImage[6];
-  screens[0] = loadImage("Images/Screens/Noscreen.png");
+  screens[0] = loadImage("Images/Screens/NoScreen.png");
   screens[1] = loadImage("Images/Screens/Glitchscreen.png");
   screens[2] = loadImage("Images/Screens/Bluescreen.png");
+  screens[3] = loadImage("Images/Screens/HackedScreen1.png");
   addObstaclesLevel1();
   playerAnimation[0] = (loadImage("Images/Bossfight/Boss1/Tod2.png"));
   playerAnimation[1] = (loadImage("Images/Bossfight/Boss1/Tod3.png"));
@@ -54,16 +55,21 @@ void setup() {
 
 void draw() {
   scale(0.75);
-  if (hasStarted) {
+  if (hasStarted && loadingLevel == 0) {
     spieler.update();
     if (spieler.x > 2000) {
       if (levelNum == 1) {
         loadLevel2();
-      } else if (levelNum == 2)
+      } else if (levelNum == 2) {
         loadLevel3();
-      else if (levelNum == 3)
+      } else if (levelNum == 3) {
+        loadingLevel = 3;
+        framesSince = 0;
+        print(loadingLevel);
         loadLevelBF();
+      }
     }
+    print(loadingLevel);
 
     move();
     level.display(1280 - verschoben/2, -30);
@@ -125,7 +131,12 @@ void draw() {
     startScreen.display(0, 0);
   if (spieler.hasDied)
     gameOver.display(0, 0);
-  image(screens[loadingLevel],0,0);
+  framesSince++;
+  print(framesSince);
+  if (framesSince <= 20)
+    image(screens[loadingLevel], 0, 0);
+  else
+    loadingLevel = 0;
 }
 
 void startOver() {
@@ -303,6 +314,8 @@ void loadLevelBF() {
   spieler.x = 0;
 }
 void loadLevel3() {
+  loadingLevel = 2;
+  framesSince = 0;
   levelNum = 3;
   addObstaclesLevel3();
 
@@ -317,6 +330,8 @@ void loadLevel3() {
 }
 
 void loadLevel2() {
+  loadingLevel = 1;
+  framesSince = 0;
   levelNum = 2;
   addObstaclesLevel2();
 
